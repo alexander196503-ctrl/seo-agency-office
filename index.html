@@ -1,0 +1,663 @@
+<title>СЕО агенство — офис</title>
+<style>
+:root{
+  --bg:#f4f5f7; --surface:#ffffff; --surface2:#eceef1; --line:#d6dae0;
+  --ink:#1c2128; --ink2:#5a6472; --ink3:#8a93a0;
+  --accent:#e8590c; --accent-ink:#ffffff; --accent-soft:#fdeee4;
+  --ok:#2f9e63; --ok-soft:#e2f3ea; --wait:#b98a00; --wait-soft:#faf1d8;
+  --bad:#d64545; --bad-soft:#fbe7e7; --idle:#8a93a0; --idle-soft:#eceef1;
+  --desk:#dfe3e8; --desk-top:#c9cfd7; --chair:#c2c9d2;
+  --mono:ui-monospace,"Cascadia Mono",Consolas,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14181e; --surface:#1c2129; --surface2:#232935; --line:#323b48;
+    --ink:#e7ebf0; --ink2:#a4aebc; --ink3:#6c7686;
+    --accent:#ff7a2f; --accent-ink:#14181e; --accent-soft:#33251c;
+    --ok:#4cc487; --ok-soft:#1c3328; --wait:#e2b53e; --wait-soft:#342c15;
+    --bad:#f07070; --bad-soft:#3a2020; --idle:#6c7686; --idle-soft:#242b36;
+    --desk:#2a313d; --desk-top:#39424f; --chair:#333c49;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14181e; --surface:#1c2129; --surface2:#232935; --line:#323b48;
+  --ink:#e7ebf0; --ink2:#a4aebc; --ink3:#6c7686;
+  --accent:#ff7a2f; --accent-ink:#14181e; --accent-soft:#33251c;
+  --ok:#4cc487; --ok-soft:#1c3328; --wait:#e2b53e; --wait-soft:#342c15;
+  --bad:#f07070; --bad-soft:#3a2020; --idle:#6c7686; --idle-soft:#242b36;
+  --desk:#2a313d; --desk-top:#39424f; --chair:#333c49;
+}
+:root[data-theme="light"]{
+  --bg:#f4f5f7; --surface:#ffffff; --surface2:#eceef1; --line:#d6dae0;
+  --ink:#1c2128; --ink2:#5a6472; --ink3:#8a93a0;
+  --accent:#e8590c; --accent-ink:#ffffff; --accent-soft:#fdeee4;
+  --ok:#2f9e63; --ok-soft:#e2f3ea; --wait:#b98a00; --wait-soft:#faf1d8;
+  --bad:#d64545; --bad-soft:#fbe7e7; --idle:#8a93a0; --idle-soft:#eceef1;
+  --desk:#dfe3e8; --desk-top:#c9cfd7; --chair:#c2c9d2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:14px/1.45 "Segoe UI",system-ui,-apple-system,sans-serif;}
+.wrap{max-width:1360px;margin:0 auto;padding:14px 18px 56px;display:flex;flex-direction:column;gap:14px}
+h1{font-size:19px;margin:0;letter-spacing:-.01em}
+h2{font-size:12px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink2);font-weight:600}
+.mono{font-family:var(--mono)}
+header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.asof{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;
+  padding:2px 8px;border-radius:999px;white-space:nowrap}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.chip.ok{color:var(--ok);background:var(--ok-soft)}
+.chip.wait{color:var(--wait);background:var(--wait-soft)}
+.chip.bad{color:var(--bad);background:var(--bad-soft)}
+.chip.idle{color:var(--idle);background:var(--idle-soft)}
+.chip.run{color:var(--accent);background:var(--accent-soft)}
+.chip.done{color:var(--ok);background:var(--ok-soft)}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;
+  display:flex;gap:10px;align-items:flex-start}
+.step .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font:700 12px/1 "Segoe UI",sans-serif}
+.step p{margin:0;font-size:12.5px;color:var(--ink2)}
+.step p b{color:var(--ink);display:block;font-size:12.5px;margin-bottom:1px}
+
+/* reception */
+.reception{display:grid;grid-template-columns:minmax(300px,1.2fr) minmax(230px,1fr);gap:10px;
+  background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:14px 16px}
+@media (max-width:760px){.reception{grid-template-columns:1fr}}
+.reception .head{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.reception .head h2{margin:0;color:var(--accent)}
+.reception .head small{color:var(--ink3);font-size:11.5px}
+.console{display:flex;flex-direction:column;gap:8px}
+.console textarea{font:13.5px/1.5 "Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--surface2);
+  border:1px solid var(--line);border-radius:9px;padding:10px 12px;min-height:88px;resize:vertical}
+.console textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.console .btn{font:700 14px/1 "Segoe UI",system-ui,sans-serif;background:var(--accent);color:var(--accent-ink);
+  border:0;border-radius:9px;padding:12px 16px;cursor:pointer;align-self:flex-start}
+.console .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.console small{color:var(--ink3);font-size:11px;line-height:1.45}
+.lastq{font-size:11.5px;color:var(--ink2);background:var(--surface2);border-radius:7px;padding:7px 10px}
+.lastq b{font-size:11px}
+.dir-side{display:flex;flex-direction:column;gap:8px}
+
+/* rooms */
+.rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:10px}
+.room{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px 12px}
+.room.wide{grid-column:1/-1}
+.room-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.room-head b{font-size:13px}
+.room-head small{color:var(--ink3);font-size:11px}
+.room .desks{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
+.room-auto{margin:0 0 8px;font-family:var(--mono);font-size:10px;color:var(--ink3);
+  background:var(--surface2);border:1px dashed var(--line);border-radius:7px;padding:5px 9px}
+
+/* desk card */
+.desk-card{background:var(--surface2);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  cursor:pointer;padding:0 0 8px;text-align:left;transition:border-color .2s, box-shadow .2s;
+  font:inherit;color:inherit;display:flex;flex-direction:column}
+.desk-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.08);border-color:var(--ink3)}
+.desk-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.desk-card svg{display:block;width:100%;height:auto;background:
+  linear-gradient(180deg, transparent 66%, var(--idle-soft) 66%)}
+.desk-card b{font-size:11.5px;line-height:1.2;display:block;padding:6px 9px 0}
+.desk-card .mdl{font-family:var(--mono);font-size:9px;color:var(--ink3);padding:2px 9px 0;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.desk-card .act{font-family:var(--mono);font-size:9.5px;color:var(--ok);padding:3px 9px 0;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.desk-card.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.desk-card.active .act{color:var(--accent)}
+.desk-card.done-l{border-color:var(--ok)}
+.desk-card.done-l .act{color:var(--ok)}
+.desk-card .led{fill:var(--idle)}
+.desk-card.base-ok .led{fill:var(--ok)}
+.desk-card.active .led{fill:var(--accent)}
+.desk-card.done-l .led{fill:var(--ok)}
+.hand{transition:transform .15s}
+@media (prefers-reduced-motion: no-preference){
+  .desk-card.active .led{animation:blink 1.1s infinite}
+  .desk-card.active .hand-l{animation:typeL .32s infinite alternate}
+  .desk-card.active .hand-r{animation:typeR .29s .12s infinite alternate}
+  .desk-card.active .scr-a{animation:flick 1s infinite}
+  .desk-card.active .scr-b{animation:flick 1.4s .3s infinite}
+  @keyframes blink{50%{opacity:.25}}
+  @keyframes typeL{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+  @keyframes typeR{from{transform:translateY(-3px)}to{transform:translateY(0)}}
+  @keyframes flick{0%,100%{opacity:1}50%{opacity:.35}}
+}
+
+/* demo toolbar */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--surface);
+  border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.toolbar .lbl{font-family:var(--mono);font-size:10.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em}
+.toolbar button{font:600 12px/1 "Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--surface2);
+  border:1px solid var(--line);border-radius:7px;padding:7px 11px;cursor:pointer}
+.toolbar button:hover{border-color:var(--accent)}
+.toolbar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toolbar button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.wavepills{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.wavepills .wp{min-width:26px;padding:6px 8px;font-family:var(--mono);font-size:10.5px}
+.wavepills .wp.cur{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.wavepills .wp.past{border-color:var(--ok);color:var(--ok)}
+.wavename{font-size:12px;color:var(--ink2);flex:1;min-width:180px}
+
+/* drawer */
+.overlay{position:fixed;inset:0;background:rgba(10,13,17,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,94vw);background:var(--surface);
+  border-left:1px solid var(--line);z-index:50;transform:translateX(105%);transition:transform .22s;
+  display:flex;flex-direction:column;padding:18px 20px;gap:12px;overflow-y:auto}
+@media (prefers-reduced-motion: reduce){.drawer{transition:none}.overlay{transition:none}}
+.drawer.open{transform:none}
+.drawer .code{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.06em}
+.drawer h3{margin:0;font-size:18px}
+.drawer .role{color:var(--ink2);font-size:13px;margin:0}
+.drawer .close{position:absolute;top:10px;right:12px;background:none;border:0;font-size:20px;color:var(--ink3);cursor:pointer;line-height:1;padding:6px}
+.drawer .close:hover{color:var(--ink)}
+.model{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;
+  color:var(--ink2);background:var(--surface2);border:1px solid var(--line);
+  border-radius:6px;padding:3px 8px;align-self:flex-start}
+.model i{width:8px;height:8px;border-radius:2px;flex:none}
+.m-claude{background:#d97757}.m-gpt{background:#19a37f}.m-gemini{background:#4e8df6}.m-code{background:#8b5cf6}
+.term{background:#10141a;border-radius:7px;padding:8px 10px;font-family:var(--mono);font-size:11px;
+  line-height:1.5;color:#7ee2a8;min-height:36px}
+.drawer.run .term{color:#ffb27d}
+.ask{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.ask label{font-size:12px;font-weight:600}
+.ask textarea{font:13px/1.45 "Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--surface2);
+  border:1px solid var(--line);border-radius:8px;padding:9px 11px;min-height:74px;resize:vertical}
+.ask textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.ask .btn{font:600 13px/1 "Segoe UI",system-ui,sans-serif;background:var(--accent);color:var(--accent-ink);
+  border:0;border-radius:8px;padding:10px 14px;cursor:pointer;align-self:flex-start}
+.ask small{color:var(--ink3);font-size:11px;line-height:1.45}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;
+  background:var(--ink);color:var(--bg);font-size:13px;padding:10px 16px;border-radius:9px;z-index:60;
+  transition:opacity .25s, transform .25s;pointer-events:none;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* below the fold */
+.tasks{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+  display:flex;flex-direction:column;gap:7px}
+.task h3{margin:0;font-size:14px}
+.task p{margin:0;font-size:12.5px;color:var(--ink2)}
+.task .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.task .owner{font-family:var(--mono);font-size:10.5px;color:var(--ink3)}
+.gates{display:flex;overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.gate{flex:1;min-width:140px;padding:10px 12px;border-left:1px solid var(--line)}
+.gate:first-child{border-left:0}
+.gate b{font-family:var(--mono);font-size:11px;color:var(--accent);display:block}
+.gate span{font-size:11.5px;color:var(--ink2);display:block;margin-top:2px}
+.mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.mod{background:var(--surface2);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;
+  display:flex;flex-direction:column;gap:6px}
+.mod b{font-size:12.5px}
+.mod small{color:var(--ink2);font-size:11.5px}
+.mod .chip{align-self:flex-start}
+.mod.active{border-color:var(--accent);border-style:solid}
+footer{font-size:11.5px;color:var(--ink3);border-top:1px solid var(--line);padding-top:12px}
+footer .mono{font-size:10.5px}
+</style>
+
+<div class="wrap">
+<header>
+  <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap">
+    <h1>СЕО агенство — офис</h1>
+    <span class="chip wait">исследовательская фаза</span>
+    <span class="asof">2026-07-20</span>
+  </div>
+</header>
+
+<div class="steps">
+  <div class="step"><span class="n">1</span><p><b>Поставь задачу директору</b>Опиши проект в поле ниже — как живому руководителю агентства.</p></div>
+  <div class="step"><span class="n">2</span><p><b>Директор раздаёт работу</b>Он разбирает задачу и передаёт её нужным отделам офиса.</p></div>
+  <div class="step"><span class="n">3</span><p><b>Отделы работают</b>Занятые сотрудники печатают, их столы подсвечены оранжевым.</p></div>
+  <div class="step"><span class="n">4</span><p><b>Контроль сдаёт результат</b>QA принимает работу — ты получаешь отчёт и решение.</p></div>
+</div>
+
+<section class="reception">
+  <div class="head">
+    <h2>Приёмная — поставить задачу агентству</h2>
+    <small>Задачи принимает SEO Director (оркестратор). Он распределяет работу и собирает результат.</small>
+  </div>
+  <div class="console">
+    <textarea id="bigQ" placeholder="Например: продвинь сайт example.ru по Москве — цель 30 лидов в месяц. Или: проверь, почему просели позиции в Яндексе."></textarea>
+    <button class="btn" id="bigAsk">📋 Отправить задачу директору</button>
+    <textarea id="bigPrompt" readonly hidden style="min-height:110px;font-family:var(--mono);font-size:11.5px"></textarea>
+    <small>Кнопка копирует готовое поручение директору — вставь его в чат Claude. Директор разберёт задачу, привлечёт отделы и вернёт план и результат сюда, на эту карту.</small>
+    <div class="lastq" id="dirLastQ" hidden></div>
+  </div>
+  <div class="dir-side" id="receptionDesks"></div>
+</section>
+
+<div class="toolbar" id="toolbar">
+  <span class="lbl">Демо — как задача идёт по офису:</span>
+  <span id="scen" style="display:flex;gap:6px;flex-wrap:wrap"></span>
+  <span class="wavepills" id="pills"></span>
+  <span class="wavename" id="wavename">Выбери сценарий — офис оживёт. Клик по сотруднику — досье и вопрос лично ему.</span>
+</div>
+
+<div class="rooms" id="rooms"></div>
+
+<section>
+  <h2>Активные задачи агентства</h2>
+  <div class="tasks">
+    <div class="task">
+      <h3>OpenClaw OSINT: «TOP-1 за 1–3 дня»</h3>
+      <p>Проверка схемы Олега Шестакова: parasite SEO + всплеск кликовых сигналов. Промпт готов, пакет результатов не получен.</p>
+      <div class="row"><span class="chip wait">ожидает запуска</span><span class="owner">owner: Trend Monitor → Director</span></div>
+    </div>
+    <div class="task">
+      <h3>Аудит n8n-цепочек ×3</h3>
+      <p>RoyalSMM · deureks.ru · dlautodesign.com — живые workflow, промпты, фактчек, индексация по модели G3–G5.</p>
+      <div class="row"><span class="chip bad">прервана</span><span class="owner">owner: Tech-SEO + QA</span></div>
+    </div>
+    <div class="task">
+      <h3>Финальная «прожарка» агентства</h3>
+      <p>Единый отчёт владельцу: штат, модели, вывод по fast-TOP, аудит цепочек, backlog P0–P2.</p>
+      <div class="row"><span class="chip idle">в очереди</span><span class="owner">owner: SEO Director</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Конвейер гейтов — этапы приёмки любой задачи</h2>
+  <div class="gates">
+    <div class="gate"><b>G0</b><span>Полномочия и измеримость</span></div>
+    <div class="gate"><b>G1</b><span>Данные готовы</span></div>
+    <div class="gate"><b>G2</b><span>Стратегия утверждена</span></div>
+    <div class="gate"><b>G3</b><span>Контент и факты приняты</span></div>
+    <div class="gate"><b>G4</b><span>Готовность релиза</span></div>
+    <div class="gate"><b>G5</b><span>Пострелизная проверка</span></div>
+    <div class="gate"><b>G6</b><span>Измерение закрыто</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Подчинённые модули — автоматика вне штата</h2>
+  <div class="mods">
+    <div class="mod" data-m="n8n"><b>n8n Content Production</b><small>Автопубликация RoyalSMM / deureks / dlautodesign. Только по APPROVED-брифу.</small><span class="chip ok">3 цепочки в работе</span></div>
+    <div class="mod" data-m="ingest"><b>SEO Data Ingestion</b><small>API-first read-only сбор GSC, GA4, Метрики, трекеров, CRM.</small><span class="chip idle">не развёрнут</span></div>
+    <div class="mod" data-m="openclaw"><b>OpenClaw Collector</b><small>UI-only fallback для кабинетов; вывод проверяет аналитик.</small><span class="chip wait">ждёт задание OSINT</span></div>
+    <div class="mod" data-m="research"><b>YouTube / TG / Web research</b><small>Смотрит и транскрибирует источники для отдела базы знаний.</small><span class="chip ok">активен</span></div>
+    <div class="mod" data-m="watchlist"><b>Source Watchlist — реестр источников</b><small>Кого смотрим: Шестаков (сайт/TG/YT/Дзен/Teletype), Black Flag SEO и др. — projects/СЕО агенство/sources-monitoring.md. Пополняется по твоей команде.</small><span class="chip ok">ведётся</span></div>
+  </div>
+</section>
+
+<footer>
+  Модели закреплены по функциям (<span class="mono">projects/СЕО агенство/CLAUDE.md</span>); замена — только через golden-set/eval и rollback.
+  Страница статичная: поручения и вопросы копируются в буфер и отправляются через чат Claude. Ноль затрат: Artifact на claude.ai, исходник в Obsidian-vault.
+</footer>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Досье агента">
+  <button class="close" id="dClose" aria-label="Закрыть">✕</button>
+  <span class="code" id="dCode"></span>
+  <h3 id="dName"></h3>
+  <p class="role" id="dRole"></p>
+  <span class="model" id="dModel"></span>
+  <div><span class="chip idle" id="dStatus">ожидает</span></div>
+  <div class="term" id="dTerm"></div>
+  <div class="lastq" id="dLastQ" hidden></div>
+  <div class="ask">
+    <label for="dQ">Спросить этого агента лично</label>
+    <textarea id="dQ" placeholder="Например: какие три самых рискованных места в наших n8n-цепочках?"></textarea>
+    <button class="btn" id="dAsk">Скопировать вопрос для Claude</button>
+    <textarea id="dPrompt" readonly hidden style="min-height:110px;font-family:var(--mono);font-size:11.5px"></textarea>
+    <small>Вопрос копируется в буфер — вставь его в чат Claude, и агент ответит в своей роли. Обычные задачи лучше ставить директору в приёмной.</small>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- data ---------- */
+const STAFF = {
+  director:{name:"SEO Director", role:"Оркестратор: принимает задачи, строит стратегию, раздаёт работу отделам и отвечает за результат", code:"SEO-01",
+    model:"Claude Fable 5 · reasoning", mc:"m-claude", base:["ok","принимает задачи"],
+    act:"> приёмная открыта — жду задачу",
+    look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#39506b",acc:"beard"}},
+  pm:{name:"Client PM / Orchestrator", role:"Правая рука директора: HANDOFF, сроки, зависимости, карточки агентов", code:"SEO-13",
+    model:"Claude Sonnet · координация", mc:"m-claude", base:["ok","ведёт HANDOFF"],
+    act:"> handoff.sync — 2026-07-16",
+    look:{skin:"#f2c9a0",hair:"#7a4a21",style:"bun",shirt:"#7a4f8a",acc:"headset"}},
+  google:{name:"Google SEO Specialist", role:"Модель ранжирования Google: индексация, ссылки, апдейты", code:"SEO-02",
+    model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
+    act:"> ожидание задачи",
+    look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#2f7d5a",acc:"glasses"}},
+  yandex:{name:"Yandex SEO Specialist", role:"Регионы, коммерческие и поведенческие сигналы, Вебмастер", code:"SEO-03",
+    model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
+    act:"> ожидание задачи",
+    look:{skin:"#f7d6b3",hair:"#c7a14a",style:"short",shirt:"#a8452e",acc:"none"}},
+  geo:{name:"GEO / AEO Specialist", role:"AI Overviews, Алиса, ChatGPT, Perplexity: цитируемость", code:"SEO-04",
+    model:"Deep Research + Gemini", mc:"m-gemini", base:["idle","ожидает"],
+    act:"> ожидание задачи",
+    look:{skin:"#8d5a3b",hair:"#14161a",style:"curly",shirt:"#3b6ea5",acc:"none"}},
+  analyst:{name:"Data Analyst", role:"GSC, GA4, Метрика, CRM: гипотезы и контрольные группы", code:"SEO-05",
+    model:"Claude + Python", mc:"m-claude", base:["idle","ожидает"],
+    act:"> ожидание read-only данных",
+    look:{skin:"#f2c9a0",hair:"#4a3627",style:"long",shirt:"#356d6b",acc:"glasses"}},
+  keyword:{name:"Keyword & Competitor Researcher", role:"Семантика, интенты, SERP-кластеры, конкуренты", code:"SEO-07",
+    model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
+    act:"> ожидание задачи",
+    look:{skin:"#e0ac7e",hair:"#20242a",style:"cap",cap:"#b4562f",shirt:"#5a6472",acc:"none"}},
+  trend:{name:"Trend Monitor / Curator", role:"Глава базы знаний: смотрит заданных инфлюенсеров (YouTube, Telegram, блоги), датирует и грейдит находки, обновляет playbook агентов", code:"SEO-12",
+    model:"Gemini (YouTube) + Deep Research", mc:"m-gemini", base:["ok","мониторинг источников"],
+    act:"> обход: Шестаков TG/YT · кейсы",
+    look:{skin:"#f7d6b3",hair:"#8a3324",style:"bun",shirt:"#b07d2b",acc:"headset"}},
+  tech:{name:"Tech-SEO / CMS Engineer", role:"Техаудит, код, CMS, счётчики, подготовка к релизу", code:"SEO-06",
+    model:"Claude Code · coding agent", mc:"m-code", base:["idle","ожидает"],
+    act:"> аудит n8n-цепочек прерван",
+    look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#44506b",acc:"glasses"}},
+  content:{name:"Content Strategist / Editor", role:"Редполитика, бриф, редактура, приёмка содержания", code:"SEO-08",
+    model:"Claude · long context", mc:"m-claude", base:["idle","ожидает"],
+    act:"> ожидание брифа",
+    look:{skin:"#f2c9a0",hair:"#2c2118",style:"long",shirt:"#8a4f6d",acc:"none"}},
+  sme:{name:"SME Reviewer", role:"Независимый фактчек: новые знания перед записью в базу и контент перед публикацией; обязателен для YMYL", code:"SEO-09",
+    model:"GPT · независимый верификатор", mc:"m-gpt", base:["idle","ожидает"],
+    act:"> ожидание материалов",
+    look:{skin:"#e0ac7e",hair:"#9aa1ab",style:"bald",shirt:"#5f6b52",acc:"beard"}},
+  links:{name:"Link Builder / Digital PR", role:"Earned media, доноры, анкоры, ссылочные гипотезы", code:"SEO-10",
+    model:"Claude + Web Search", mc:"m-claude", base:["idle","ожидает"],
+    act:"> ожидание задачи",
+    look:{skin:"#8d5a3b",hair:"#14161a",style:"short",shirt:"#a8632e",acc:"none"}},
+  cro:{name:"CRO / Behavioral", role:"Сниппет → визит → лид; UX и поведенческие эксперименты", code:"SEO-11",
+    model:"Claude · reasoning", mc:"m-claude", base:["idle","ожидает"],
+    act:"> ожидание задачи",
+    look:{skin:"#f7d6b3",hair:"#6b4a86",style:"curly",shirt:"#2e6b8a",acc:"glasses"}},
+  qa:{name:"QA / Risk Controller", role:"Независимая приёмка, риск-гейты, запрет самоприёмки", code:"SEO-14",
+    model:"GPT · независимая приёмка", mc:"m-gpt", base:["idle","ожидает"],
+    act:"> ожидание артефактов",
+    look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#70444a",acc:"headset"}},
+  release:{name:"Release Engineer", role:"Staging/draft, версии, выпуск, post-check, rollback", code:"SEO-15",
+    model:"Claude Code · coding agent", mc:"m-code", base:["idle","ожидает"],
+    act:"> ожидание релиза",
+    look:{skin:"#c68b59",hair:"#20242a",style:"cap",cap:"#2f5d43",shirt:"#3d4a5c",acc:"none"}}
+};
+
+const ROOMS = [
+  {title:"Отдел поисковых систем", desc:"кто и как ранжирует: Google, Яндекс и AI-выдача", ids:["google","yandex","geo"]},
+  {title:"Отдел исследований и данных", desc:"цифры, семантика и SERP-анализ", ids:["analyst","keyword"]},
+  {title:"Отдел базы знаний", desc:"смотрит инфлюенсеров в YouTube/TG и пополняет память агентства проверенными знаниями",
+   ids:["trend","sme"], auto:"Автоматика отдела: YouTube/TG/Web research · OpenClaw Collector · Source Watchlist (реестр источников)"},
+  {title:"Производственный отдел", desc:"руками делает сайт лучше: техника, контент, ссылки, поведение", ids:["tech","content","links","cro"], wide:true},
+  {title:"Отдел контроля и релизов", desc:"независимая приёмка и безопасный выпуск", ids:["qa","release"]}
+];
+
+/* ---------- compact person svg ---------- */
+function personSVG(p){
+  const hx=30, hy=21;
+  const hair = {
+    short:`<circle cx="${hx}" cy="${hy-3}" r="10" fill="${p.hair}"/><circle cx="${hx}" cy="${hy+2}" r="8.5" fill="${p.skin}"/>`,
+    curly:`<circle cx="${hx-6}" cy="${hy-6}" r="4.6" fill="${p.hair}"/><circle cx="${hx}" cy="${hy-8.5}" r="5.2" fill="${p.hair}"/><circle cx="${hx+6}" cy="${hy-6}" r="4.6" fill="${p.hair}"/><circle cx="${hx}" cy="${hy+2}" r="8.5" fill="${p.skin}"/>`,
+    bun:`<circle cx="${hx}" cy="${hy-3}" r="10" fill="${p.hair}"/><circle cx="${hx}" cy="${hy-13}" r="4" fill="${p.hair}"/><circle cx="${hx}" cy="${hy+2}" r="8.5" fill="${p.skin}"/>`,
+    long:`<circle cx="${hx}" cy="${hy-3}" r="10" fill="${p.hair}"/><rect x="${hx-11}" y="${hy-3}" width="22" height="13" rx="5" fill="${p.hair}"/><circle cx="${hx}" cy="${hy+2}" r="8.5" fill="${p.skin}"/>`,
+    cap:`<path d="M ${hx-10} ${hy-2} a10 10 0 0 1 20 0 z" fill="${p.cap||'#3b6ea5'}"/><rect x="${hx-12}" y="${hy-3.5}" width="27" height="3" rx="1.5" fill="${p.cap||'#3b6ea5'}"/>`,
+    bald:``
+  }[p.style||'short'];
+  const acc = {
+    glasses:`<circle cx="${hx-4}" cy="${hy+1.5}" r="3" fill="none" stroke="#2c3440" stroke-width="1.2"/><circle cx="${hx+4}" cy="${hy+1.5}" r="3" fill="none" stroke="#2c3440" stroke-width="1.2"/><line x1="${hx-1}" y1="${hy+1.5}" x2="${hx+1}" y2="${hy+1.5}" stroke="#2c3440" stroke-width="1.2"/>`,
+    headset:`<path d="M ${hx-10} ${hy} a10 10 0 0 1 20 0" fill="none" stroke="#2c3440" stroke-width="1.8"/><rect x="${hx-13}" y="${hy-1.5}" width="4.5" height="7" rx="2" fill="#2c3440"/><rect x="${hx+8.5}" y="${hy-1.5}" width="4.5" height="7" rx="2" fill="#2c3440"/>`,
+    beard:`<path d="M ${hx-6.5} ${hy+4} a6.5 6.5 0 0 0 13 0 v2.5 a6.5 5 0 0 1 -13 0 z" fill="${p.hair}"/>`,
+    none:``
+  }[p.acc||'none'];
+  return `
+  <svg viewBox="0 0 156 76" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="14" y="26" width="32" height="32" rx="8" fill="var(--chair)"/>
+    <rect x="15" y="31" width="30" height="26" rx="9" fill="${p.shirt}"/>
+    <circle cx="${hx}" cy="${hy+2}" r="8.5" fill="${p.skin}"/>
+    ${hair}${acc}
+    <rect x="47" y="51" width="26" height="4" rx="1.5" fill="#2c3440"/>
+    <circle class="hand hand-l" cx="53" cy="50" r="2.6" fill="${p.skin}"/>
+    <circle class="hand hand-r" cx="66" cy="50" r="2.6" fill="${p.skin}"/>
+    <rect x="88" y="24" width="48" height="29" rx="3" fill="#161b23" stroke="var(--line)"/>
+    <rect x="91" y="27" width="42" height="23" rx="2" fill="#20272f"/>
+    <rect class="scr-a" x="95" y="32" width="22" height="2.6" rx="1.3" fill="#46a37c"/>
+    <rect class="scr-b" x="95" y="37.5" width="31" height="2.6" rx="1.3" fill="#3b4657"/>
+    <rect x="95" y="43" width="17" height="2.6" rx="1.3" fill="#3b4657"/>
+    <circle class="led" cx="130" cy="29.5" r="2.2"/>
+    <rect x="108" y="53" width="9" height="4" fill="var(--desk-top)"/>
+    <rect x="6" y="57" width="144" height="5" rx="2" fill="var(--desk-top)"/>
+    <rect x="10" y="62" width="136" height="14" rx="3" fill="var(--desk)"/>
+    <rect x="78" y="66" width="8" height="8" rx="1.5" fill="var(--accent-soft)"/>
+  </svg>`;
+}
+function deskCard(id){
+  const s = STAFF[id];
+  const c = document.createElement("button");
+  c.type = "button";
+  c.className = "desk-card" + (s.base[0]==="ok" ? " base-ok" : "");
+  c.dataset.a = id;
+  c.innerHTML = personSVG({...s.look})
+    + `<b>${s.name}</b><span class="mdl">${s.model}</span><span class="act">${s.act}</span>`;
+  c.addEventListener("click", ()=>openDrawer(id));
+  return c;
+}
+
+/* reception desks: director + pm */
+const rd = document.getElementById("receptionDesks");
+rd.appendChild(deskCard("director"));
+rd.appendChild(deskCard("pm"));
+
+/* rooms */
+const roomsBox = document.getElementById("rooms");
+ROOMS.forEach(r=>{
+  const room = document.createElement("section");
+  room.className = "room" + (r.wide ? " wide" : "");
+  room.innerHTML = `<div class="room-head"><b>${r.title}</b><small>${r.desc}</small></div>`
+    + (r.auto ? `<p class="room-auto">${r.auto}</p>` : "");
+  const g = document.createElement("div"); g.className = "desks";
+  r.ids.forEach(id=>g.appendChild(deskCard(id)));
+  room.appendChild(g);
+  roomsBox.appendChild(room);
+});
+
+/* ---------- toast ---------- */
+const toast = document.getElementById("toast");
+let toastT = null;
+function showToast(msg){
+  toast.textContent = msg; toast.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(()=>toast.classList.remove("show"), 3000);
+}
+async function copyOrReveal(text, revealEl){
+  let ok = false;
+  try{ await navigator.clipboard.writeText(text); ok = true; }catch(e){}
+  if(ok){ revealEl.hidden = true; }
+  else{ revealEl.hidden = false; revealEl.value = text; revealEl.focus(); revealEl.select(); }
+  return ok;
+}
+
+/* ---------- director console ---------- */
+document.getElementById("bigAsk").addEventListener("click", async ()=>{
+  const q = document.getElementById("bigQ").value.trim();
+  if(!q){ showToast("Сначала опиши задачу для директора."); return; }
+  const prompt = `Новая задача для SEO-агентства «СЕО агенство» (Obsidian-vault, projects/СЕО агенство).\nПрими её в роли SEO Director / оркестратора (SEO-01, skill seo-strategist, модель по функции: максимальный reasoning).\nПорядок: разбери задачу, задай владельцу уточняющие вопросы при необходимости, распредели работу по профильным Senior-агентам (Google/Yandex/GEO, данные и семантика, производство, QA/релиз), собери их результаты и дай сводный план с гейтами G0–G6, рисками и следующими шагами. Обнови статусы на офисной карте (dashboard.html) и HANDOFF.\n\nЗадача владельца: ${q}`;
+  const ok = await copyOrReveal(prompt, document.getElementById("bigPrompt"));
+  localStorage.setItem("q_director_task", q);
+  renderDirLastQ();
+  showToast(ok ? "Поручение директору скопировано — вставь его в чат Claude." : "Буфер недоступен — текст поручения выделен ниже, скопируй вручную.");
+});
+function renderDirLastQ(){
+  const lq = localStorage.getItem("q_director_task");
+  const el = document.getElementById("dirLastQ");
+  if(lq){ el.hidden = false; el.innerHTML = "<b>Последняя задача директору:</b> " + lq.replace(/[<>&]/g, ch=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[ch])); }
+  else el.hidden = true;
+}
+renderDirLastQ();
+
+/* ---------- drawer ---------- */
+const drawer = document.getElementById("drawer"), overlay = document.getElementById("overlay");
+let drawerId = null;
+function statusOf(id){
+  const card = document.querySelector('.desk-card[data-a="'+id+'"]');
+  if(card.classList.contains("active")) return ["run","в работе"];
+  if(card.classList.contains("done-l")) return ["done","этап сдан"];
+  return STAFF[id].base;
+}
+function openDrawer(id){
+  drawerId = id;
+  const s = STAFF[id];
+  const card = document.querySelector('.desk-card[data-a="'+id+'"]');
+  document.getElementById("dCode").textContent = s.code + " · memory/skills";
+  document.getElementById("dName").textContent = s.name;
+  document.getElementById("dRole").textContent = s.role;
+  document.getElementById("dModel").innerHTML = `<i class="${s.mc}"></i>${s.model}`;
+  const st = statusOf(id);
+  const dS = document.getElementById("dStatus");
+  dS.className = "chip " + st[0]; dS.textContent = st[1];
+  drawer.classList.toggle("run", st[0]==="run");
+  document.getElementById("dTerm").textContent = card.querySelector(".act").textContent;
+  const lq = localStorage.getItem("q_"+id);
+  const lqEl = document.getElementById("dLastQ");
+  if(lq){ lqEl.hidden = false; lqEl.innerHTML = "<b>Последний вопрос:</b> " + lq.replace(/[<>&]/g, ch=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[ch])); }
+  else lqEl.hidden = true;
+  document.getElementById("dQ").value = "";
+  document.getElementById("dPrompt").hidden = true;
+  drawer.classList.add("open"); overlay.classList.add("open");
+}
+function closeDrawer(){ drawer.classList.remove("open"); overlay.classList.remove("open"); drawerId = null; }
+document.getElementById("dClose").addEventListener("click", closeDrawer);
+overlay.addEventListener("click", closeDrawer);
+addEventListener("keydown", e=>{ if(e.key==="Escape") closeDrawer(); });
+
+document.getElementById("dAsk").addEventListener("click", async ()=>{
+  const q = document.getElementById("dQ").value.trim();
+  if(!q){ showToast("Сначала напиши вопрос."); return; }
+  const s = STAFF[drawerId];
+  const prompt = `Вопрос агенту SEO-агентства.\nРоль: ${s.name} (${s.code}, skill из memory/skills, модель по функции: ${s.model}).\nОтветь в этой роли по правилам проекта «СЕО агенство» (Senior-уровень, доказательность, без выдумывания фактов).\n\nВопрос: ${q}`;
+  const ok = await copyOrReveal(prompt, document.getElementById("dPrompt"));
+  localStorage.setItem("q_"+drawerId, q);
+  showToast(ok ? "Вопрос скопирован — вставь его в чат Claude." : "Буфер недоступен — промпт выделен ниже, скопируй вручную.");
+});
+
+/* ---------- simulator ---------- */
+const SCEN = {
+  "Новый клиент": [
+    {g:"Волна 0 · G0", t:"Приёмная: KPI, гео, доступы, baseline, риск-класс", a:["director","analyst","tech","pm","qa"], m:["ingest"],
+     acts:{director:"> фиксирую KPI, гео и критерий успеха",analyst:"> проверяю доступы GSC/GA4/Метрика",tech:"> ставлю счётчики и цели",pm:"> завожу папку проекта и task register",qa:"> определяю риск-класс и гейты"}},
+    {g:"Волна 1 · G1", t:"Все отделы диагностируют сайт параллельно", a:["google","yandex","geo","tech","analyst","keyword","content","links","cro"], m:["ingest"],
+     acts:{google:"> аудит индексации и ссылочного",yandex:"> регионы и коммерческие факторы",geo:"> цитируемость в AI-выдаче",keyword:"> семантика и SERP-кластеры",content:"> контент-инвентарь, каннибализация",links:"> ссылочный baseline",cro:"> путь сниппет → лид",tech:"> crawl, скорость, schema",analyst:"> нормализация данных"}},
+    {g:"Волна 2 · G2", t:"Директор сводит стратегию — утверждает владелец", a:["director","trend","pm"], m:[],
+     acts:{director:"> свожу треки и backlog",trend:"> свежие сигналы рынка",pm:"> собираю карточки в HANDOFF"}},
+    {g:"Волна 3 · G3", t:"Производство: техника, контент+SME, ссылки, CRO", a:["tech","content","sme","links","cro","geo"], m:["n8n"],
+     acts:{tech:"> техфиксы через staging",content:"> брифы → драфты → редактура",sme:"> фактчек, YMYL-контроль",links:"> доноры и earned media",cro:"> UX-тесты",geo:"> entity/citation слой"}},
+    {g:"Волна 4 · G4–G6", t:"Контроль: приёмка → релиз → измерение → решение", a:["qa","release","analyst","google","yandex","geo","director"], m:[],
+     acts:{qa:"> независимая приёмка G4",release:"> выпуск + post-check",analyst:"> тест vs контроль 7/28/90",google:"> выводы Google",yandex:"> выводы Яндекс",geo:"> замер AI-цитируемости",director:"> scale / change / stop"}}
+  ],
+  "Контент-кампания": [
+    {g:"Бриф · G2", t:"Директор и редактор формируют APPROVED-бриф", a:["director","keyword","content"], m:[],
+     acts:{director:"> утверждаю кластер и цели",keyword:"> кластер запросов и интенты",content:"> собираю APPROVED-бриф"}},
+    {g:"Производство", t:"n8n генерирует драфты по закреплённому prompt/model", a:["content"], m:["n8n"],
+     acts:{content:"> контроль драфтов из n8n"}},
+    {g:"Приёмка · G3", t:"Редактор принимает содержание, SME — факты", a:["content","sme"], m:[],
+     acts:{content:"> редактура: added value, штампы",sme:"> фактчек и источники"}},
+    {g:"Релиз · G4–G5", t:"QA закрывает готовность, Release публикует", a:["qa","release"], m:["n8n"],
+     acts:{qa:"> gate G4: чек-лист",release:"> публикация + canonical/schema"}},
+    {g:"Измерение · G6", t:"Аналитик сравнивает тест/контроль, директор решает", a:["analyst","director"], m:[],
+     acts:{analyst:"> показы/клики vs контроль",director:"> scale / change / stop"}}
+  ],
+  "Спорный метод (ПФ)": [
+    {g:"Разведка", t:"Trend Monitor + OpenClaw: OSINT read-only", a:["trend"], m:["openclaw","research"],
+     acts:{trend:"> транскрипты, карта заявлений"}},
+    {g:"Экспертиза", t:"Оценка механизма и доказательств A–D", a:["google","yandex","analyst"], m:[],
+     acts:{google:"> механизм: parasite + клики",yandex:"> ПФ-чувствительность Яндекса",analyst:"> evidence grade A–D"}},
+    {g:"Карточка гипотезы", t:"Механизм, риски, stop-критерий", a:["director","qa"], m:[],
+     acts:{director:"> условия применимости",qa:"> риски и stop-критерий"}},
+    {g:"Решение владельца", t:"Внешнее воздействие — только после согласования", a:["director","pm"], m:[],
+     acts:{director:"> презентация с confidence",pm:"> фиксирую решение в ADR"}},
+    {g:"Sandbox-тест", t:"Изолированный домен, тест+контроль, rollback", a:["analyst","tech","qa","release"], m:[],
+     acts:{analyst:"> дизайн эксперимента",tech:"> тестовый домен и трекинг",qa:"> контроль stop-критерия",release:"> rollback наготове"}}
+  ],
+  "База знаний": [
+    {g:"Мониторинг", t:"Обход заданных инфлюенсеров: YouTube, Telegram, блоги", a:["trend"], m:["research","openclaw","watchlist"],
+     acts:{trend:"> обход watchlist: новые видео и посты"}},
+    {g:"Отбор и грейд", t:"Датирование находок, evidence grade A–D, отсев маркетинга", a:["trend"], m:["watchlist"],
+     acts:{trend:"> грейд заявлений: кейс / мнение / реклама"}},
+    {g:"Фактчек", t:"SME независимо проверяет знание перед записью в базу", a:["sme"], m:[],
+     acts:{sme:"> проверка фактов и первоисточников"}},
+    {g:"Внесение в базу", t:"Обновление wiki/playbook с датой, confidence и сроком пересмотра; спорное — на решение владельца", a:["trend","pm","director"], m:[],
+     acts:{trend:"> запись: confidence + expiry date",pm:"> ссылки в HANDOFF и index",director:"> спорные методы — на согласование"}}
+  ],
+  "Аудит n8n": [
+    {g:"Инвентаризация", t:"Съём живых workflow, нод и версий промптов", a:["tech","pm"], m:["n8n"],
+     acts:{tech:"> экспорт workflow ×3",pm:"> реестр находок"}},
+    {g:"Контент-срез · G3", t:"Факты, AI-штампы, переспам, каннибализация", a:["content","sme","keyword"], m:[],
+     acts:{content:"> выборка статей: штампы",sme:"> фактчек выборки",keyword:"> каннибализация кластеров"}},
+    {g:"Техника · G4", t:"Schema, staging, идемпотентность, audit log", a:["tech","release"], m:["n8n"],
+     acts:{tech:"> schema, canonical, индексация",release:"> staging, версии, backup"}},
+    {g:"Вердикт · G5", t:"Сводка рисков и отчёт директору", a:["qa","analyst","director"], m:[],
+     acts:{qa:"> сводка рисков ×3",analyst:"> индексация и трафик",director:"> вердикт и backlog P0–P2"}}
+  ]
+};
+
+const scenBox = document.getElementById("scen");
+const pills = document.getElementById("pills");
+const wavename = document.getElementById("wavename");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let timer = null, cur = null;
+
+function setAct(card, txt){ card.querySelector(".act").textContent = txt; }
+function resetBoard(){
+  document.querySelectorAll(".desk-card").forEach(card=>{
+    card.classList.remove("active","done-l");
+    setAct(card, STAFF[card.dataset.a].act);
+  });
+  document.querySelectorAll(".mod").forEach(m=>m.classList.remove("active"));
+}
+function stopSim(){
+  clearTimeout(timer); cur = null; resetBoard();
+  pills.innerHTML = ""; wavename.textContent = "Выбери сценарий — офис оживёт. Клик по сотруднику — досье и вопрос лично ему.";
+  scenBox.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+}
+function renderPills(name){
+  pills.innerHTML = "";
+  SCEN[name].forEach((w,i)=>{
+    const b = document.createElement("button");
+    b.className = "wp"; b.textContent = String(i + 1);
+    b.title = w.g + " — " + w.t;
+    b.addEventListener("click", ()=>goto(i));
+    pills.appendChild(b);
+  });
+  const x = document.createElement("button");
+  x.className = "wp"; x.textContent = "✕"; x.title = "Сбросить демо";
+  x.addEventListener("click", stopSim);
+  pills.appendChild(x);
+}
+function goto(i){
+  clearTimeout(timer);
+  const waves = SCEN[cur];
+  resetBoard();
+  pills.querySelectorAll(".wp").forEach((el,j)=>{
+    el.classList.toggle("cur", j===i);
+    el.classList.toggle("past", j<i && j<waves.length);
+  });
+  wavename.textContent = waves[i].g + " — " + waves[i].t;
+  waves.forEach((w,j)=>{
+    if(j<i) w.a.forEach(id=>{
+      const card = document.querySelector('.desk-card[data-a="'+id+'"]');
+      card.classList.add("done-l"); setAct(card,"> этап сдан, артефакты переданы");
+    });
+  });
+  const w = waves[i];
+  w.a.forEach(id=>{
+    const card = document.querySelector('.desk-card[data-a="'+id+'"]');
+    card.classList.remove("done-l"); card.classList.add("active");
+    setAct(card, (w.acts && w.acts[id]) || "> в работе: "+w.g);
+  });
+  w.m.forEach(id=>document.querySelector('.mod[data-m="'+id+'"]').classList.add("active"));
+  if(drawerId) openDrawer(drawerId);
+  if(!reduce && i < waves.length-1) timer = setTimeout(()=>goto(i+1), 3600);
+}
+Object.keys(SCEN).forEach(name=>{
+  const b = document.createElement("button");
+  b.textContent = name;
+  b.addEventListener("click", ()=>{
+    scenBox.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    cur = name; renderPills(name); goto(0);
+  });
+  scenBox.appendChild(b);
+});
+</script>
