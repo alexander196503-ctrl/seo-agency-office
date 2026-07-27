@@ -351,7 +351,7 @@ const STAFF = {
     model:"Claude Code · coding agent", mc:"m-code", base:["idle","ожидает"],
     act:"> аудит n8n-цепочек прерван",
     look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#44506b",acc:"glasses"}},
-  content:{name:"Content Strategist / Editor", role:"Редполитика, бриф, редактура, приёмка содержания", code:"SEO-08",
+  content:{name:"Content Strategist / Editor", role:"Редполитика, бриф, редактура, приёмка содержания + вердикт по частоте публикаций (сколько статей/мес под нишу и гео)", code:"SEO-08",
     model:"Claude · long context", mc:"m-claude", base:["idle","ожидает"],
     act:"> ожидание брифа",
     look:{skin:"#f2c9a0",hair:"#2c2118",style:"long",shirt:"#8a4f6d",acc:"none"}},
@@ -579,6 +579,18 @@ const SCEN = {
      acts:{sme:"> проверка фактов и первоисточников"}},
     {g:"Внесение в базу", t:"Обновление wiki/playbook с датой, confidence и сроком пересмотра; спорное — на решение владельца", a:["trend","pm","director"], m:[],
      acts:{trend:"> запись: confidence + expiry date",pm:"> ссылки в HANDOFF и index",director:"> спорные методы — на согласование"}}
+  ],
+  "Частота публикаций": [
+    {g:"Вводные", t:"Директор принимает проект: ниша, гео, приоритетный поисковик", a:["director"], m:[],
+     acts:{director:"> ниша, гео, YMYL?, приоритет Яндекс/Google"}},
+    {g:"Входные данные", t:"Ширина спроса и скорость ТОП-конкурентов", a:["keyword","analyst"], m:["ingest"],
+     acts:{keyword:"> объём семантики и под-интенты",analyst:"> как часто публикуют ТОП-5"}},
+    {g:"Сверка алгоритмов", t:"Что сейчас поощряют Google и Яндекс (QDF, ровный ритм, риск переспама)", a:["google","yandex"], m:[],
+     acts:{google:"> QDF, topical authority, Scaled Content risk",yandex:"> ровный ритм, коммерч. полнота, поведение"}},
+    {g:"Вердикт по частоте", t:"Content Strategist выдаёт диапазон статей/мес + план проверки", a:["content"], m:[],
+     acts:{content:"> вердикт: N статей/мес по 6 параметрам"}},
+    {g:"Прогноз кликов/показов", t:"Директор сводит сценарии low/base/high по каждому поисковику", a:["director"], m:[],
+     acts:{director:"> прогноз low/base/high + контроль 28/90д"}}
   ],
   "Аудит n8n": [
     {g:"Инвентаризация", t:"Съём живых workflow, нод и версий промптов", a:["tech","pm"], m:["n8n"],
