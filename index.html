@@ -164,6 +164,32 @@ header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-cont
 .term{background:#10141a;border-radius:7px;padding:8px 10px;font-family:var(--mono);font-size:11px;
   line-height:1.5;color:#7ee2a8;min-height:36px}
 .drawer.run .term{color:#ffb27d}
+
+/* документы агента */
+.files{display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line);padding-top:12px}
+.files > label{font-size:12px;font-weight:600}
+.file-link{display:flex;align-items:flex-start;gap:10px;text-decoration:none;color:inherit;
+  background:var(--surface2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;
+  transition:border-color .15s, box-shadow .15s}
+a.file-link:hover{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+a.file-link:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.file-link .fi{font-size:15px;line-height:1.25;flex:none;width:18px;text-align:center}
+.file-link .ft{display:flex;flex-direction:column;gap:2px;min-width:0}
+.file-link .ft b{font-size:12.5px;font-weight:600;line-height:1.3}
+.file-link .ft small{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  word-break:break-all;line-height:1.35}
+.file-link.muted{opacity:.65}
+.file-link.muted .ft b{font-weight:500;color:var(--ink2)}
+.btn.ghost{font:600 12px/1 "Segoe UI",system-ui,sans-serif;background:transparent;color:var(--ink2);
+  border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer;align-self:flex-start}
+.btn.ghost:hover{border-color:var(--ink3);color:var(--ink)}
+.files .hint{color:var(--ink3);font-size:11px;line-height:1.45}
+
+/* бейдж runtime на столе */
+.desk-card .rt{position:absolute;top:6px;right:6px;font-family:var(--mono);font-size:8px;font-weight:700;
+  letter-spacing:.04em;background:var(--ok);color:#fff;border-radius:4px;padding:2px 4px;line-height:1}
+.desk-card{position:relative}
+
 .ask{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
 .ask label{font-size:12px;font-weight:600}
 .ask textarea{font:13px/1.45 "Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--surface2);
@@ -190,6 +216,18 @@ header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-cont
 .gate:first-child{border-left:0}
 .gate b{font-family:var(--mono);font-size:11px;color:var(--accent);display:block}
 .gate span{font-size:11.5px;color:var(--ink2);display:block;margin-top:2px}
+/* база знаний */
+.kbgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px}
+.kb-card{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;
+  transition:border-color .15s, box-shadow .15s}
+.kb-card:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.kb-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kb-card.star{border-color:var(--accent);background:var(--accent-soft)}
+.kb-card b{font-size:12.5px;line-height:1.25}
+.kb-card .own{font-family:var(--mono);font-size:9.5px;color:var(--ink3)}
+.kb-card .what{font-size:11.5px;color:var(--ink2);line-height:1.35}
+
 .mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
 .mod{background:var(--surface2);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;
   display:flex;flex-direction:column;gap:6px}
@@ -206,7 +244,9 @@ footer .mono{font-size:10.5px}
   <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap">
     <h1>СЕО агенство — офис</h1>
     <span class="chip wait">исследовательская фаза</span>
-    <span class="asof">2026-07-20</span>
+    <span class="chip ok">17 ролей · 4 runtime</span>
+    <span class="chip idle">15 баз знаний</span>
+    <span class="asof">2026-08-07</span>
   </div>
 </header>
 
@@ -214,7 +254,11 @@ footer .mono{font-size:10.5px}
   <div class="step"><span class="n">1</span><p><b>Поставь задачу директору</b>Опиши проект в поле ниже — как живому руководителю агентства.</p></div>
   <div class="step"><span class="n">2</span><p><b>Директор раздаёт работу</b>Он разбирает задачу и передаёт её нужным отделам офиса.</p></div>
   <div class="step"><span class="n">3</span><p><b>Отделы работают</b>Занятые сотрудники печатают, их столы подсвечены оранжевым.</p></div>
-  <div class="step"><span class="n">4</span><p><b>Контроль сдаёт результат</b>QA принимает работу — ты получаешь отчёт и решение.</p></div>
+  <div class="step"><span class="n">4</span><p><b>Открой документы агента</b>Клик по столу → досье, а в нём ссылки на его скилл и базу знаний.</p></div>
+</div>
+
+<div class="room-auto" style="margin:0">
+  Значок <b style="background:var(--ok);color:#fff;border-radius:4px;padding:1px 4px;font-size:9px">RT</b> на столе = роль уже собрана как исполняемый runtime-агент в <span class="mono">.claude/agents/</span>. Остальные пока живут как скилл — системный промпт, который надо запускать вручную.
 </div>
 
 <section class="reception">
@@ -250,9 +294,14 @@ footer .mono{font-size:10.5px}
       <div class="row"><span class="chip wait">ожидает запуска</span><span class="owner">owner: Trend Monitor → Director</span></div>
     </div>
     <div class="task">
+      <h3>Runtime-агент Director</h3>
+      <p>Собрать оркестратора как исполняемого агента: раздаёт задачи, собирает и проверяет выводы, обрабатывает аналитику, решает. Без него 4 живых агента запускаются только вручную.</p>
+      <div class="row"><span class="chip wait">следующий шаг</span><span class="owner">owner: владелец + Director</span></div>
+    </div>
+    <div class="task">
       <h3>Аудит n8n-цепочек ×3</h3>
-      <p>RoyalSMM · deureks.ru · dlautodesign.com — живые workflow, промпты, фактчек, индексация по модели G3–G5.</p>
-      <div class="row"><span class="chip bad">прервана</span><span class="owner">owner: Tech-SEO + QA</span></div>
+      <p>RoyalSMM · deureks.ru · dlautodesign.com. Снят с бэклога 2026-08-07: делается после запуска агентства, запускает владелец лично.</p>
+      <div class="row"><span class="chip idle">отложена владельцем</span><span class="owner">owner: владелец</span></div>
     </div>
     <div class="task">
       <h3>Финальная «прожарка» агентства</h3>
@@ -276,6 +325,15 @@ footer .mono{font-size:10.5px}
 </section>
 
 <section>
+  <h2>База знаний агентства — что мы считаем правдой на сегодня</h2>
+  <p style="margin:0 0 10px;font-size:12.5px;color:var(--ink2)">
+    Скилл — <b>как работать</b> (процедура, чек-лист). База — <b>что считаем правдой</b> (факт, источник, дата, сила доказательства).
+    Факт живёт в одном месте, скиллы на него ссылаются. Профильный агент читает свою базу, <b>директор читает все</b>.
+  </p>
+  <div class="kbgrid" id="kbGrid"></div>
+</section>
+
+<section>
   <h2>Подчинённые модули — автоматика вне штата</h2>
   <div class="mods">
     <div class="mod" data-m="n8n"><b>n8n Content Production</b><small>Автопубликация RoyalSMM / deureks / dlautodesign. Только по APPROVED-брифу.</small><span class="chip ok">3 цепочки в работе</span></div>
@@ -288,7 +346,8 @@ footer .mono{font-size:10.5px}
 
 <footer>
   Модели закреплены по функциям (<span class="mono">projects/СЕО агенство/CLAUDE.md</span>); замена — только через golden-set/eval и rollback.
-  Страница статичная: поручения и вопросы копируются в буфер и отправляются через чат Claude. Ноль затрат: Artifact на claude.ai, исходник в Obsidian-vault.
+  Страница статичная: поручения и вопросы копируются в буфер и отправляются через чат Claude. Ноль затрат: GitHub Pages, исходник в Obsidian-vault.
+  <br>Ссылки на скиллы и базы открываются через <span class="mono">obsidian://</span> — работают на компьютере, где установлен Obsidian с vault <span class="mono">Хранилище1</span>.
 </footer>
 </div>
 
@@ -301,6 +360,29 @@ footer .mono{font-size:10.5px}
   <span class="model" id="dModel"></span>
   <div><span class="chip idle" id="dStatus">ожидает</span></div>
   <div class="term" id="dTerm"></div>
+
+  <div class="files">
+    <label>Документы агента</label>
+    <a class="file-link" id="dSkillLink" href="#" target="_blank" rel="noopener">
+      <span class="fi">⚙</span>
+      <span class="ft"><b>Скилл — как он работает</b><small id="dSkillPath"></small></span>
+    </a>
+    <a class="file-link" id="dKbLink" href="#" target="_blank" rel="noopener">
+      <span class="fi">📚</span>
+      <span class="ft"><b id="dKbName">База знаний</b><small id="dKbPath"></small></span>
+    </a>
+    <div class="file-link muted" id="dKbNone" hidden>
+      <span class="fi">○</span>
+      <span class="ft"><b>Своей базы знаний пока нет</b><small>роль работает на общих правилах проекта</small></span>
+    </div>
+    <a class="file-link" id="dMapLink" href="#" target="_blank" rel="noopener" hidden>
+      <span class="fi">🗺</span>
+      <span class="ft"><b>Общая карта всех баз</b><small>директор читает все базы, профильный агент — только свою</small></span>
+    </a>
+    <button class="btn ghost" id="dCopyPaths">Скопировать пути к файлам</button>
+    <small class="hint">Ссылки открывают файл в Obsidian на этом компьютере. Если Obsidian не установлен — скопируй пути кнопкой выше.</small>
+  </div>
+
   <div class="lastq" id="dLastQ" hidden></div>
   <div class="ask">
     <label for="dQ">Спросить этого агента лично</label>
@@ -314,75 +396,109 @@ footer .mono{font-size:10.5px}
 
 <script>
 /* ---------- data ---------- */
+/* Vault для obsidian:// ссылок. Меняется здесь одной строкой, если vault переименуют. */
+const VAULT = "Хранилище1";
+
+/* Поля агента:
+   skill — путь к системному промпту роли в vault
+   kb    — путь к его базе знаний (null = своей базы пока нет)
+   rt    — true, если роль уже собрана как исполняемый runtime-агент в .claude/agents/ */
 const STAFF = {
-  director:{name:"SEO Director", role:"Оркестратор: принимает задачи, строит стратегию, раздаёт работу отделам и отвечает за результат", code:"SEO-01",
+  director:{name:"SEO Director", role:"Оркестратор: принимает задачи, раздаёт работу агентам, собирает и проверяет их выводы, обрабатывает аналитику и принимает решение", code:"SEO-01",
     model:"Claude Fable 5 · reasoning", mc:"m-claude", base:["ok","принимает задачи"],
-    act:"> приёмная открыта — жду задачу",
+    act:"> приёмная открыта — жду задачу", rt:false,
+    skill:"memory/skills/seo-strategist.md", kb:"wiki/seo-kb/factor-priority-model.md", kbName:"Модель приоритетов v1.2",
+    kbAll:true,
     look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#39506b",acc:"beard"}},
-  pm:{name:"Client PM / Orchestrator", role:"Правая рука директора: HANDOFF, сроки, зависимости, карточки агентов", code:"SEO-13",
+  pm:{name:"Client PM / Orchestrator", role:"Правая рука директора: HANDOFF, сроки, зависимости, карточки агентов, отчётность перед клиентом", code:"SEO-13",
     model:"Claude Sonnet · координация", mc:"m-claude", base:["ok","ведёт HANDOFF"],
-    act:"> handoff.sync — 2026-07-16",
+    act:"> handoff.sync — 2026-08-07", rt:false,
+    skill:"memory/skills/seo-client-pm.md", kb:"wiki/seo-kb/kb-agency-operations.md", kbName:"Сроки, экономика и процессы",
     look:{skin:"#f2c9a0",hair:"#7a4a21",style:"bun",shirt:"#7a4f8a",acc:"headset"}},
-  google:{name:"Google SEO Specialist", role:"Модель ранжирования Google: индексация, ссылки, апдейты", code:"SEO-02",
+  google:{name:"Google SEO Specialist", role:"Модель ранжирования Google: индексация, ссылки, апдейты, разбор утечки документации", code:"SEO-02",
     model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
-    act:"> ожидание задачи",
+    act:"> ожидание задачи", rt:false,
+    skill:"memory/skills/seo-google-specialist.md", kb:"wiki/seo-kb/kb-google.md", kbName:"База знаний: Google",
     look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#2f7d5a",acc:"glasses"}},
   yandex:{name:"Yandex SEO Specialist", role:"Регионы, коммерческие и поведенческие сигналы, Вебмастер", code:"SEO-03",
     model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
-    act:"> ожидание задачи",
+    act:"> ожидание задачи", rt:false,
+    skill:"memory/skills/seo-yandex-specialist.md", kb:"wiki/seo-kb/kb-yandex.md", kbName:"База знаний: Яндекс",
     look:{skin:"#f7d6b3",hair:"#c7a14a",style:"short",shirt:"#a8452e",acc:"none"}},
   geo:{name:"GEO / AEO Specialist", role:"AI Overviews, Алиса, ChatGPT, Perplexity: цитируемость", code:"SEO-04",
     model:"Deep Research + Gemini", mc:"m-gemini", base:["idle","ожидает"],
-    act:"> ожидание задачи",
+    act:"> ожидание задачи", rt:false,
+    skill:"memory/skills/seo-geo-specialist.md", kb:"wiki/seo-kb/kb-geo-aeo.md", kbName:"База знаний: GEO/AEO",
     look:{skin:"#8d5a3b",hair:"#14161a",style:"curly",shirt:"#3b6ea5",acc:"none"}},
   analyst:{name:"Data Analyst", role:"GSC, GA4, Метрика, CRM: гипотезы и контрольные группы", code:"SEO-05",
     model:"Claude + Python", mc:"m-claude", base:["idle","ожидает"],
-    act:"> ожидание read-only данных",
+    act:"> ожидание read-only данных", rt:false,
+    skill:"memory/skills/seo-data-analyst.md", kb:null,
     look:{skin:"#f2c9a0",hair:"#4a3627",style:"long",shirt:"#356d6b",acc:"glasses"}},
-  keyword:{name:"Keyword & Competitor Researcher", role:"Семантика, интенты, SERP-кластеры, конкуренты", code:"SEO-07",
-    model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
-    act:"> ожидание задачи",
+  researcher:{name:"Niche & Competitor Researcher", role:"Проходимость ниши, ручной разбор топа, структура спроса, золотые запросы, пороги входа", code:"SEO-07",
+    model:"Claude · runtime-агент", mc:"m-claude", base:["idle","ожидает"],
+    act:"> ожидание задачи", rt:true,
+    skill:"memory/skills/seo-niche-researcher.md", kb:"wiki/seo-kb/kb-competitor-research.md", kbName:"База знаний: ниша и конкуренты",
     look:{skin:"#e0ac7e",hair:"#20242a",style:"cap",cap:"#b4562f",shirt:"#5a6472",acc:"none"}},
   trend:{name:"Trend Monitor / Curator", role:"Глава базы знаний: смотрит заданных инфлюенсеров (YouTube, Telegram, блоги), датирует и грейдит находки, обновляет playbook агентов", code:"SEO-12",
     model:"Gemini (YouTube) + Deep Research", mc:"m-gemini", base:["ok","мониторинг источников"],
-    act:"> обход: Шестаков TG/YT · кейсы",
+    act:"> обход: Шестаков TG/YT · кейсы", rt:false,
+    skill:"memory/skills/seo-trend-monitor.md", kb:"projects/СЕО агенство/sources-monitoring.md", kbName:"Реестр источников",
     look:{skin:"#f7d6b3",hair:"#8a3324",style:"bun",shirt:"#b07d2b",acc:"headset"}},
-  tech:{name:"Tech-SEO / CMS Engineer", role:"Техаудит, код, CMS, счётчики, подготовка к релизу", code:"SEO-06",
-    model:"Claude Code · coding agent", mc:"m-code", base:["idle","ожидает"],
-    act:"> аудит n8n-цепочек прерван",
+  tech:{name:"Tech-SEO / CMS Engineer", role:"Техаудит, код, CMS, счётчики, диагностика падений, подготовка к релизу", code:"SEO-06",
+    model:"Claude Code · runtime-агент", mc:"m-code", base:["idle","ожидает"],
+    act:"> эталонный агент, грейд A", rt:true,
+    skill:"memory/skills/seo-tech-auditor.md", kb:"wiki/seo-kb/kb-tech.md", kbName:"База знаний: техническое SEO",
     look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#44506b",acc:"glasses"}},
-  content:{name:"Content Strategist / Editor", role:"Редполитика, бриф, редактура, приёмка содержания + вердикт по частоте публикаций (сколько статей/мес под нишу и гео)", code:"SEO-08",
+  content:{name:"Content Strategist / Editor", role:"Редполитика, бриф, редактура, приёмка содержания + вердикт по частоте публикаций", code:"SEO-08",
     model:"Claude · long context", mc:"m-claude", base:["idle","ожидает"],
-    act:"> ожидание брифа",
+    act:"> ожидание брифа", rt:false,
+    skill:"memory/skills/seo-content-editor.md", kb:"wiki/seo-kb/kb-content.md", kbName:"База знаний: контент и E-E-A-T",
     look:{skin:"#f2c9a0",hair:"#2c2118",style:"long",shirt:"#8a4f6d",acc:"none"}},
   sme:{name:"SME Reviewer", role:"Независимый фактчек: новые знания перед записью в базу и контент перед публикацией; обязателен для YMYL", code:"SEO-09",
     model:"GPT · независимый верификатор", mc:"m-gpt", base:["idle","ожидает"],
-    act:"> ожидание материалов",
+    act:"> ожидание материалов", rt:false,
+    skill:"memory/skills/seo-subject-matter-expert.md", kb:null,
     look:{skin:"#e0ac7e",hair:"#9aa1ab",style:"bald",shirt:"#5f6b52",acc:"beard"}},
-  links:{name:"Link Builder / Digital PR", role:"Earned media, доноры, анкоры, ссылочные гипотезы", code:"SEO-10",
+  links:{name:"Link Builder / Digital PR", role:"Earned media, доноры, анкоры, темп прироста по паттерну ниши", code:"SEO-10",
     model:"Claude + Web Search", mc:"m-claude", base:["idle","ожидает"],
-    act:"> ожидание задачи",
+    act:"> ожидание задачи", rt:false,
+    skill:"memory/skills/seo-linkbuilder.md", kb:"wiki/seo-kb/kb-links.md", kbName:"База знаний: ссылки и Digital PR",
     look:{skin:"#8d5a3b",hair:"#14161a",style:"short",shirt:"#a8632e",acc:"none"}},
-  cro:{name:"CRO / Behavioral", role:"Сниппет → визит → лид; UX и поведенческие эксперименты", code:"SEO-11",
+  cro:{name:"CRO / Behavioral", role:"Сниппет → визит → лид; первый экран, мобильная версия, УТП, поведенческие эксперименты", code:"SEO-11",
     model:"Claude · reasoning", mc:"m-claude", base:["idle","ожидает"],
-    act:"> ожидание задачи",
+    act:"> ожидание задачи", rt:false,
+    skill:"memory/skills/seo-cro-behavioral.md", kb:"wiki/seo-kb/kb-cro-behavioral.md", kbName:"База знаний: конверсия и поведение",
     look:{skin:"#f7d6b3",hair:"#6b4a86",style:"curly",shirt:"#2e6b8a",acc:"glasses"}},
+  local:{name:"Local SEO Specialist", role:"Яндекс Карты, 2ГИС, Google Business Profile, NAP-консистентность, гео-посадочные", code:"SEO-16",
+    model:"Claude · runtime-агент", mc:"m-claude", base:["idle","ожидает"],
+    act:"> ожидание задачи", rt:true,
+    skill:"memory/skills/seo-local-specialist.md", kb:"wiki/seo-kb/kb-local-seo.md", kbName:"База знаний: локальное SEO",
+    look:{skin:"#f2c9a0",hair:"#3f2e1e",style:"bun",shirt:"#2f7d7d",acc:"none"}},
+  orm:{name:"ORM / SERM Specialist", role:"Брендовая выдача, отзывы, работа с негативом. Отзывы = коммерческий фактор Яндекса и компонент траста", code:"SEO-17",
+    model:"Claude · runtime-агент", mc:"m-claude", base:["idle","ожидает"],
+    act:"> ожидание задачи", rt:true,
+    skill:"memory/skills/seo-orm-serm.md", kb:"wiki/seo-kb/kb-orm-serm.md", kbName:"База знаний: репутация и SERM",
+    look:{skin:"#c68b59",hair:"#5a3a7a",style:"long",shirt:"#8a5a2e",acc:"glasses"}},
   qa:{name:"QA / Risk Controller", role:"Независимая приёмка, риск-гейты, запрет самоприёмки", code:"SEO-14",
     model:"GPT · независимая приёмка", mc:"m-gpt", base:["idle","ожидает"],
-    act:"> ожидание артефактов",
+    act:"> ожидание артефактов", rt:false,
+    skill:"memory/skills/seo-qa-risk.md", kb:"wiki/seo-kb/kb-disputed-methods.md", kbName:"База знаний: спорные методы",
     look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#70444a",acc:"headset"}},
   release:{name:"Release Engineer", role:"Staging/draft, версии, выпуск, post-check, rollback", code:"SEO-15",
     model:"Claude Code · coding agent", mc:"m-code", base:["idle","ожидает"],
-    act:"> ожидание релиза",
+    act:"> ожидание релиза", rt:false,
+    skill:"memory/skills/seo-release-engineer.md", kb:null,
     look:{skin:"#c68b59",hair:"#20242a",style:"cap",cap:"#2f5d43",shirt:"#3d4a5c",acc:"none"}}
 };
 
 const ROOMS = [
   {title:"Отдел поисковых систем", desc:"кто и как ранжирует: Google, Яндекс и AI-выдача", ids:["google","yandex","geo"]},
-  {title:"Отдел исследований и данных", desc:"цифры, семантика и SERP-анализ", ids:["analyst","keyword"]},
+  {title:"Отдел исследований и данных", desc:"цифры, семантика и SERP-анализ", ids:["analyst","researcher"]},
   {title:"Отдел базы знаний", desc:"смотрит инфлюенсеров в YouTube/TG и пополняет память агентства проверенными знаниями",
    ids:["trend","sme"], auto:"Автоматика отдела: YouTube/TG/Web research · OpenClaw Collector · Source Watchlist (реестр источников)"},
   {title:"Производственный отдел", desc:"руками делает сайт лучше: техника, контент, ссылки, поведение", ids:["tech","content","links","cro"], wide:true},
+  {title:"Отдел присутствия и репутации", desc:"карты, карточки организаций и брендовая выдача — роли заведены 2026-08-06", ids:["local","orm"]},
   {title:"Отдел контроля и релизов", desc:"независимая приёмка и безопасный выпуск", ids:["qa","release"]}
 ];
 
@@ -431,10 +547,43 @@ function deskCard(id){
   c.className = "desk-card" + (s.base[0]==="ok" ? " base-ok" : "");
   c.dataset.a = id;
   c.innerHTML = personSVG({...s.look})
+    + (s.rt ? `<span class="rt" title="Роль собрана как исполняемый runtime-агент">RT</span>` : "")
     + `<b>${s.name}</b><span class="mdl">${s.model}</span><span class="act">${s.act}</span>`;
   c.addEventListener("click", ()=>openDrawer(id));
   return c;
 }
+
+/* ---------- ссылки на файлы в vault ---------- */
+function obsidianURI(path){
+  return "obsidian://open?vault=" + encodeURIComponent(VAULT) + "&file=" + encodeURIComponent(path);
+}
+
+/* ---------- секция баз знаний ---------- */
+const KB = [
+  {f:"wiki/seo-kb/_index.md", n:"Общая карта баз", o:"SEO Director", w:"Точка входа: какая база чья, стандарт маркировки доказательств, правило свежести", star:true},
+  {f:"wiki/seo-kb/factor-priority-model.md", n:"Модель приоритетов v1.2", o:"SEO Director", w:"На что давить в проекте и в каком порядке. Траст, возраст домена, влияние по Яндексу/Google, уверенность A–D", star:true},
+  {f:"wiki/seo-kb/kb-google.md", n:"Google", o:"SEO-02", w:"Разбор утечки документации, апдейты, официальные позиции как контрольный слой"},
+  {f:"wiki/seo-kb/kb-yandex.md", n:"Яндекс", o:"SEO-03", w:"Коммерческие факторы, поведенческие, механизм накрутки для распознавания"},
+  {f:"wiki/seo-kb/kb-geo-aeo.md", n:"GEO / AEO", o:"SEO-04", w:"AI Overviews, цитируемость, расслоение спроса, answer units"},
+  {f:"wiki/seo-kb/kb-competitor-research.md", n:"Ниша и конкуренты", o:"SEO-07", w:"Проходимость выдачи, разбор топа, золотые запросы, пороги входа"},
+  {f:"wiki/seo-kb/kb-tech.md", n:"Техническое SEO", o:"SEO-06", w:"Индексируемость, рендеринг, диагностика падений, ограничения конструкторов"},
+  {f:"wiki/seo-kb/kb-content.md", n:"Контент и E-E-A-T", o:"SEO-08", w:"Интент, кластеры, структура ТЗ под генерацию, refresh, порог риска AI-контента"},
+  {f:"wiki/seo-kb/kb-links.md", n:"Ссылки и Digital PR", o:"SEO-10", w:"Паттерн ниши вместо цифр, качество доноров, бюджеты, темп"},
+  {f:"wiki/seo-kb/kb-cro-behavioral.md", n:"Конверсия и поведение", o:"SEO-11", w:"Первый экран, мобильная версия, УТП, связь конверсии с ранжированием"},
+  {f:"wiki/seo-kb/kb-local-seo.md", n:"Локальное SEO", o:"SEO-16", w:"Карты, карточки организаций, NAP, гео-посадочные"},
+  {f:"wiki/seo-kb/kb-orm-serm.md", n:"Репутация и SERM", o:"SEO-17", w:"Брендовая выдача, отзывы, работа с негативом"},
+  {f:"wiki/seo-kb/kb-launch-new-site.md", n:"Запуск нового сайта", o:"Director + Content", w:"Песочница, возраст домена, выбор CMS, первые месяцы"},
+  {f:"wiki/seo-kb/kb-agency-operations.md", n:"Сроки, экономика, процессы", o:"Director + PM", w:"Матрица сроков выхода в топ, окупаемость, цена контракта, когда SEO не подходит"},
+  {f:"wiki/seo-kb/kb-disputed-methods.md", n:"Спорные методы", o:"Director + QA", w:"Серое и чёрное: механизм, риск, статус. В скиллы исполнителей не попадает"}
+];
+const kbGrid = document.getElementById("kbGrid");
+KB.forEach(k=>{
+  const a = document.createElement("a");
+  a.className = "kb-card" + (k.star ? " star" : "");
+  a.href = obsidianURI(k.f); a.target = "_blank"; a.rel = "noopener";
+  a.innerHTML = `<b>${k.star ? "⭐ " : ""}${k.n}</b><span class="own">${k.o} · ${k.f.replace("wiki/seo-kb/","")}</span><span class="what">${k.w}</span>`;
+  kbGrid.appendChild(a);
+});
 
 /* reception desks: director + pm */
 const rd = document.getElementById("receptionDesks");
@@ -509,6 +658,27 @@ function openDrawer(id){
   dS.className = "chip " + st[0]; dS.textContent = st[1];
   drawer.classList.toggle("run", st[0]==="run");
   document.getElementById("dTerm").textContent = card.querySelector(".act").textContent;
+
+  /* документы агента */
+  const skillLink = document.getElementById("dSkillLink");
+  skillLink.href = obsidianURI(s.skill);
+  document.getElementById("dSkillPath").textContent = s.skill;
+
+  const kbLink = document.getElementById("dKbLink");
+  const kbNone = document.getElementById("dKbNone");
+  if(s.kb){
+    kbLink.hidden = false; kbNone.hidden = true;
+    kbLink.href = obsidianURI(s.kb);
+    document.getElementById("dKbName").textContent = s.kbName || "База знаний";
+    document.getElementById("dKbPath").textContent = s.kb;
+  } else {
+    kbLink.hidden = true; kbNone.hidden = false;
+  }
+
+  const mapLink = document.getElementById("dMapLink");
+  if(s.kbAll){ mapLink.hidden = false; mapLink.href = obsidianURI("wiki/seo-kb/_index.md"); }
+  else mapLink.hidden = true;
+
   const lq = localStorage.getItem("q_"+id);
   const lqEl = document.getElementById("dLastQ");
   if(lq){ lqEl.hidden = false; lqEl.innerHTML = "<b>Последний вопрос:</b> " + lq.replace(/[<>&]/g, ch=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[ch])); }
@@ -518,6 +688,19 @@ function openDrawer(id){
   drawer.classList.add("open"); overlay.classList.add("open");
 }
 function closeDrawer(){ drawer.classList.remove("open"); overlay.classList.remove("open"); drawerId = null; }
+
+document.getElementById("dCopyPaths").addEventListener("click", async ()=>{
+  const s = STAFF[drawerId];
+  const lines = [
+    `${s.name} (${s.code})`,
+    `Скилл:        ${s.skill}`,
+    `База знаний:  ${s.kb || "— своей базы пока нет"}`
+  ];
+  if(s.kbAll) lines.push(`Карта баз:    wiki/seo-kb/_index.md`);
+  lines.push(`Vault:        ${VAULT}`);
+  const ok = await copyOrReveal(lines.join("\n"), document.getElementById("dPrompt"));
+  showToast(ok ? "Пути скопированы." : "Буфер недоступен — пути показаны ниже.");
+});
 document.getElementById("dClose").addEventListener("click", closeDrawer);
 overlay.addEventListener("click", closeDrawer);
 addEventListener("keydown", e=>{ if(e.key==="Escape") closeDrawer(); });
@@ -537,8 +720,8 @@ const SCEN = {
   "Новый клиент": [
     {g:"Волна 0 · G0", t:"Приёмная: KPI, гео, доступы, baseline, риск-класс", a:["director","analyst","tech","pm","qa"], m:["ingest"],
      acts:{director:"> фиксирую KPI, гео и критерий успеха",analyst:"> проверяю доступы GSC/GA4/Метрика",tech:"> ставлю счётчики и цели",pm:"> завожу папку проекта и task register",qa:"> определяю риск-класс и гейты"}},
-    {g:"Волна 1 · G1", t:"Все отделы диагностируют сайт параллельно", a:["google","yandex","geo","tech","analyst","keyword","content","links","cro"], m:["ingest"],
-     acts:{google:"> аудит индексации и ссылочного",yandex:"> регионы и коммерческие факторы",geo:"> цитируемость в AI-выдаче",keyword:"> семантика и SERP-кластеры",content:"> контент-инвентарь, каннибализация",links:"> ссылочный baseline",cro:"> путь сниппет → лид",tech:"> crawl, скорость, schema",analyst:"> нормализация данных"}},
+    {g:"Волна 1 · G1", t:"Все отделы диагностируют сайт параллельно", a:["google","yandex","geo","tech","analyst","researcher","content","links","cro"], m:["ingest"],
+     acts:{google:"> аудит индексации и ссылочного",yandex:"> регионы и коммерческие факторы",geo:"> цитируемость в AI-выдаче",researcher:"> семантика и SERP-кластеры",content:"> контент-инвентарь, каннибализация",links:"> ссылочный baseline",cro:"> путь сниппет → лид",tech:"> crawl, скорость, schema",analyst:"> нормализация данных"}},
     {g:"Волна 2 · G2", t:"Директор сводит стратегию — утверждает владелец", a:["director","trend","pm"], m:[],
      acts:{director:"> свожу треки и backlog",trend:"> свежие сигналы рынка",pm:"> собираю карточки в HANDOFF"}},
     {g:"Волна 3 · G3", t:"Производство: техника, контент+SME, ссылки, CRO", a:["tech","content","sme","links","cro","geo"], m:["n8n"],
@@ -547,8 +730,8 @@ const SCEN = {
      acts:{qa:"> независимая приёмка G4",release:"> выпуск + post-check",analyst:"> тест vs контроль 7/28/90",google:"> выводы Google",yandex:"> выводы Яндекс",geo:"> замер AI-цитируемости",director:"> scale / change / stop"}}
   ],
   "Контент-кампания": [
-    {g:"Бриф · G2", t:"Директор и редактор формируют APPROVED-бриф", a:["director","keyword","content"], m:[],
-     acts:{director:"> утверждаю кластер и цели",keyword:"> кластер запросов и интенты",content:"> собираю APPROVED-бриф"}},
+    {g:"Бриф · G2", t:"Директор и редактор формируют APPROVED-бриф", a:["director","researcher","content"], m:[],
+     acts:{director:"> утверждаю кластер и цели",researcher:"> кластер запросов и интенты",content:"> собираю APPROVED-бриф"}},
     {g:"Производство", t:"n8n генерирует драфты по закреплённому prompt/model", a:["content"], m:["n8n"],
      acts:{content:"> контроль драфтов из n8n"}},
     {g:"Приёмка · G3", t:"Редактор принимает содержание, SME — факты", a:["content","sme"], m:[],
@@ -583,8 +766,8 @@ const SCEN = {
   "Частота публикаций": [
     {g:"Вводные", t:"Директор принимает проект: ниша, гео, приоритетный поисковик", a:["director"], m:[],
      acts:{director:"> ниша, гео, YMYL?, приоритет Яндекс/Google"}},
-    {g:"Входные данные", t:"Ширина спроса и скорость ТОП-конкурентов", a:["keyword","analyst"], m:["ingest"],
-     acts:{keyword:"> объём семантики и под-интенты",analyst:"> как часто публикуют ТОП-5"}},
+    {g:"Входные данные", t:"Ширина спроса и скорость ТОП-конкурентов", a:["researcher","analyst"], m:["ingest"],
+     acts:{researcher:"> объём семантики и под-интенты",analyst:"> как часто публикуют ТОП-5"}},
     {g:"Сверка алгоритмов", t:"Что сейчас поощряют Google и Яндекс (QDF, ровный ритм, риск переспама)", a:["google","yandex"], m:[],
      acts:{google:"> QDF, topical authority, Scaled Content risk",yandex:"> ровный ритм, коммерч. полнота, поведение"}},
     {g:"Вердикт по частоте", t:"Content Strategist выдаёт диапазон статей/мес + план проверки", a:["content"], m:[],
@@ -595,8 +778,8 @@ const SCEN = {
   "Аудит n8n": [
     {g:"Инвентаризация", t:"Съём живых workflow, нод и версий промптов", a:["tech","pm"], m:["n8n"],
      acts:{tech:"> экспорт workflow ×3",pm:"> реестр находок"}},
-    {g:"Контент-срез · G3", t:"Факты, AI-штампы, переспам, каннибализация", a:["content","sme","keyword"], m:[],
-     acts:{content:"> выборка статей: штампы",sme:"> фактчек выборки",keyword:"> каннибализация кластеров"}},
+    {g:"Контент-срез · G3", t:"Факты, AI-штампы, переспам, каннибализация", a:["content","sme","researcher"], m:[],
+     acts:{content:"> выборка статей: штампы",sme:"> фактчек выборки",researcher:"> каннибализация кластеров"}},
     {g:"Техника · G4", t:"Schema, staging, идемпотентность, audit log", a:["tech","release"], m:["n8n"],
      acts:{tech:"> schema, canonical, индексация",release:"> staging, версии, backup"}},
     {g:"Вердикт · G5", t:"Сводка рисков и отчёт директору", a:["qa","analyst","director"], m:[],
