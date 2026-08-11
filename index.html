@@ -161,6 +161,12 @@ header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-cont
   border-radius:6px;padding:3px 8px;align-self:flex-start}
 .model i{width:8px;height:8px;border-radius:2px;flex:none}
 .m-claude{background:#d97757}.m-gpt{background:#19a37f}.m-gemini{background:#4e8df6}.m-code{background:#8b5cf6}
+/* реальные рантаймы: Opus / Sonnet / Haiku — контур A (Claude), GPT — контур B (внешний) */
+.m-opus{background:#d97757}.m-sonnet{background:#e8a87c}.m-haiku{background:#c4b5a0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:11.5px;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+.legend i{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:baseline}
+.legend b{color:var(--ink);font-weight:600}
 .term{background:#10141a;border-radius:7px;padding:8px 10px;font-family:var(--mono);font-size:11px;
   line-height:1.5;color:#7ee2a8;min-height:36px}
 .drawer.run .term{color:#ffb27d}
@@ -245,8 +251,9 @@ footer .mono{font-size:10.5px}
     <h1>СЕО агенство — офис</h1>
     <span class="chip wait">исследовательская фаза</span>
     <span class="chip ok">17 ролей · 4 runtime</span>
-    <span class="chip idle">15 баз знаний</span>
-    <span class="asof">2026-08-07</span>
+    <span class="chip wait">2 директора</span>
+    <span class="chip idle">16 баз знаний</span>
+    <span class="asof">2026-08-08</span>
   </div>
 </header>
 
@@ -257,14 +264,22 @@ footer .mono{font-size:10.5px}
   <div class="step"><span class="n">4</span><p><b>Открой документы агента</b>Клик по столу → досье, а в нём ссылки на его скилл и базу знаний.</p></div>
 </div>
 
+<div class="legend">
+  <span><b>Рантаймы:</b></span>
+  <span><i class="m-opus"></i>Claude <b>Opus 5</b> — стратегия, спорные выводы, приёмка (4 роли)</span>
+  <span><i class="m-sonnet"></i>Claude <b>Sonnet 5</b> — процедурная работа с данными (12 ролей)</span>
+  <span><i class="m-haiku"></i><b>Haiku 4.5</b> — дешёвая механика: «есть ли новое» (1)</span>
+  <span><i class="m-gpt"></i><b>ChatGPT</b> — внешний контур: директор-дубль и фактчек YMYL</span>
+</div>
+
 <div class="room-auto" style="margin:0">
-  Значок <b style="background:var(--ok);color:#fff;border-radius:4px;padding:1px 4px;font-size:9px">RT</b> на столе = роль уже собрана как исполняемый runtime-агент в <span class="mono">.claude/agents/</span>. Остальные пока живут как скилл — системный промпт, который надо запускать вручную.
+  Значок <b style="background:var(--ok);color:#fff;border-radius:4px;padding:1px 4px;font-size:9px">RT</b> на столе = роль собрана как исполняемый runtime-агент в <span class="mono">.claude/agents/</span>. Остальные пока живут как скилл — системный промпт, который надо запускать вручную. Полная карта «агент → модель → рантайм» — <span class="mono">projects/СЕО агенство/runtime-map.md</span>.
 </div>
 
 <section class="reception">
   <div class="head">
     <h2>Приёмная — поставить задачу агентству</h2>
-    <small>Задачи принимает SEO Director (оркестратор). Он распределяет работу и собирает результат.</small>
+    <small>Задачи принимает SEO Director (оркестратор). Он распределяет работу, собирает результат и сверяется с директором-дублем на другом рантайме.</small>
   </div>
   <div class="console">
     <textarea id="bigQ" placeholder="Например: продвинь сайт example.ru по Москве — цель 30 лидов в месяц. Или: проверь, почему просели позиции в Яндексе."></textarea>
@@ -405,88 +420,94 @@ const VAULT = "Хранилище1";
    rt    — true, если роль уже собрана как исполняемый runtime-агент в .claude/agents/ */
 const STAFF = {
   director:{name:"SEO Director", role:"Оркестратор: принимает задачи, раздаёт работу агентам, собирает и проверяет их выводы, обрабатывает аналитику и принимает решение", code:"SEO-01",
-    model:"Claude Fable 5 · reasoning", mc:"m-claude", base:["ok","принимает задачи"],
+    model:"Claude Opus 5 · оркестратор", mc:"m-opus", base:["ok","принимает задачи"],
     act:"> приёмная открыта — жду задачу", rt:false,
     skill:"memory/skills/seo-strategist.md", kb:"wiki/seo-kb/factor-priority-model.md", kbName:"Модель приоритетов v1.2",
     kbAll:true,
     look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#39506b",acc:"beard"}},
+  directorb:{name:"SEO Director — дубль", role:"Второй директор на другом рантайме. Формирует выводы независимо, ДО того как увидит выводы первого. Согласие без собственного вывода аннулирует результат", code:"SEO-01B",
+    model:"ChatGPT · внешний рантайм", mc:"m-gpt", base:["wait","ручной мост"],
+    act:"> ждёт брифинг-пакет", rt:false,
+    skill:"memory/skills/seo-strategist.md", kb:"projects/СЕО агенство/dual-director-protocol.md", kbName:"Протокол двух директоров",
+    kbAll:true,
+    look:{skin:"#f7d6b3",hair:"#4a4f57",style:"short",shirt:"#2f6b52",acc:"glasses"}},
   pm:{name:"Client PM / Orchestrator", role:"Правая рука директора: HANDOFF, сроки, зависимости, карточки агентов, отчётность перед клиентом", code:"SEO-13",
-    model:"Claude Sonnet · координация", mc:"m-claude", base:["ok","ведёт HANDOFF"],
+    model:"Claude Sonnet 5", mc:"m-sonnet", base:["ok","ведёт HANDOFF"],
     act:"> handoff.sync — 2026-08-07", rt:false,
     skill:"memory/skills/seo-client-pm.md", kb:"wiki/seo-kb/kb-agency-operations.md", kbName:"Сроки, экономика и процессы",
     look:{skin:"#f2c9a0",hair:"#7a4a21",style:"bun",shirt:"#7a4f8a",acc:"headset"}},
   google:{name:"Google SEO Specialist", role:"Модель ранжирования Google: индексация, ссылки, апдейты, разбор утечки документации", code:"SEO-02",
-    model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
+    model:"Claude Sonnet 5 + веб-поиск", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-google-specialist.md", kb:"wiki/seo-kb/kb-google.md", kbName:"База знаний: Google",
     look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#2f7d5a",acc:"glasses"}},
   yandex:{name:"Yandex SEO Specialist", role:"Регионы, коммерческие и поведенческие сигналы, Вебмастер", code:"SEO-03",
-    model:"Deep Research + Claude", mc:"m-gpt", base:["idle","ожидает"],
+    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-yandex-specialist.md", kb:"wiki/seo-kb/kb-yandex.md", kbName:"База знаний: Яндекс",
     look:{skin:"#f7d6b3",hair:"#c7a14a",style:"short",shirt:"#a8452e",acc:"none"}},
   geo:{name:"GEO / AEO Specialist", role:"AI Overviews, Алиса, ChatGPT, Perplexity: цитируемость", code:"SEO-04",
-    model:"Deep Research + Gemini", mc:"m-gemini", base:["idle","ожидает"],
+    model:"Claude Sonnet 5 + браузер", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-geo-specialist.md", kb:"wiki/seo-kb/kb-geo-aeo.md", kbName:"База знаний: GEO/AEO",
     look:{skin:"#8d5a3b",hair:"#14161a",style:"curly",shirt:"#3b6ea5",acc:"none"}},
   analyst:{name:"Data Analyst", role:"GSC, GA4, Метрика, CRM: гипотезы и контрольные группы", code:"SEO-05",
-    model:"Claude + Python", mc:"m-claude", base:["idle","ожидает"],
+    model:"Claude Sonnet 5 + Node", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание read-only данных", rt:false,
     skill:"memory/skills/seo-data-analyst.md", kb:null,
     look:{skin:"#f2c9a0",hair:"#4a3627",style:"long",shirt:"#356d6b",acc:"glasses"}},
   researcher:{name:"Niche & Competitor Researcher", role:"Проходимость ниши, ручной разбор топа, структура спроса, золотые запросы, пороги входа", code:"SEO-07",
-    model:"Claude · runtime-агент", mc:"m-claude", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:true,
     skill:"memory/skills/seo-niche-researcher.md", kb:"wiki/seo-kb/kb-competitor-research.md", kbName:"База знаний: ниша и конкуренты",
     look:{skin:"#e0ac7e",hair:"#20242a",style:"cap",cap:"#b4562f",shirt:"#5a6472",acc:"none"}},
   trend:{name:"Trend Monitor / Curator", role:"Глава базы знаний: смотрит заданных инфлюенсеров (YouTube, Telegram, блоги), датирует и грейдит находки, обновляет playbook агентов", code:"SEO-12",
-    model:"Gemini (YouTube) + Deep Research", mc:"m-gemini", base:["ok","мониторинг источников"],
+    model:"Haiku 4.5 → Sonnet 5", mc:"m-haiku", base:["ok","мониторинг источников"],
     act:"> обход: Шестаков TG/YT · кейсы", rt:false,
     skill:"memory/skills/seo-trend-monitor.md", kb:"projects/СЕО агенство/sources-monitoring.md", kbName:"Реестр источников",
     look:{skin:"#f7d6b3",hair:"#8a3324",style:"bun",shirt:"#b07d2b",acc:"headset"}},
   tech:{name:"Tech-SEO / CMS Engineer", role:"Техаудит, код, CMS, счётчики, диагностика падений, подготовка к релизу", code:"SEO-06",
-    model:"Claude Code · runtime-агент", mc:"m-code", base:["idle","ожидает"],
+    model:"Claude Sonnet 5 + краулер", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> эталонный агент, грейд A", rt:true,
     skill:"memory/skills/seo-tech-auditor.md", kb:"wiki/seo-kb/kb-tech.md", kbName:"База знаний: техническое SEO",
     look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#44506b",acc:"glasses"}},
   content:{name:"Content Strategist / Editor", role:"Редполитика, бриф, редактура, приёмка содержания + вердикт по частоте публикаций", code:"SEO-08",
-    model:"Claude · long context", mc:"m-claude", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание брифа", rt:false,
     skill:"memory/skills/seo-content-editor.md", kb:"wiki/seo-kb/kb-content.md", kbName:"База знаний: контент и E-E-A-T",
     look:{skin:"#f2c9a0",hair:"#2c2118",style:"long",shirt:"#8a4f6d",acc:"none"}},
   sme:{name:"SME Reviewer", role:"Независимый фактчек: новые знания перед записью в базу и контент перед публикацией; обязателен для YMYL", code:"SEO-09",
-    model:"GPT · независимый верификатор", mc:"m-gpt", base:["idle","ожидает"],
+    model:"Sonnet 5 · YMYL → ChatGPT", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание материалов", rt:false,
     skill:"memory/skills/seo-subject-matter-expert.md", kb:null,
     look:{skin:"#e0ac7e",hair:"#9aa1ab",style:"bald",shirt:"#5f6b52",acc:"beard"}},
   links:{name:"Link Builder / Digital PR", role:"Earned media, доноры, анкоры, темп прироста по паттерну ниши", code:"SEO-10",
-    model:"Claude + Web Search", mc:"m-claude", base:["idle","ожидает"],
+    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-linkbuilder.md", kb:"wiki/seo-kb/kb-links.md", kbName:"База знаний: ссылки и Digital PR",
     look:{skin:"#8d5a3b",hair:"#14161a",style:"short",shirt:"#a8632e",acc:"none"}},
   cro:{name:"CRO / Behavioral", role:"Сниппет → визит → лид; первый экран, мобильная версия, УТП, поведенческие эксперименты", code:"SEO-11",
-    model:"Claude · reasoning", mc:"m-claude", base:["idle","ожидает"],
+    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-cro-behavioral.md", kb:"wiki/seo-kb/kb-cro-behavioral.md", kbName:"База знаний: конверсия и поведение",
     look:{skin:"#f7d6b3",hair:"#6b4a86",style:"curly",shirt:"#2e6b8a",acc:"glasses"}},
   local:{name:"Local SEO Specialist", role:"Яндекс Карты, 2ГИС, Google Business Profile, NAP-консистентность, гео-посадочные", code:"SEO-16",
-    model:"Claude · runtime-агент", mc:"m-claude", base:["idle","ожидает"],
+    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:true,
     skill:"memory/skills/seo-local-specialist.md", kb:"wiki/seo-kb/kb-local-seo.md", kbName:"База знаний: локальное SEO",
     look:{skin:"#f2c9a0",hair:"#3f2e1e",style:"bun",shirt:"#2f7d7d",acc:"none"}},
   orm:{name:"ORM / SERM Specialist", role:"Брендовая выдача, отзывы, работа с негативом. Отзывы = коммерческий фактор Яндекса и компонент траста", code:"SEO-17",
-    model:"Claude · runtime-агент", mc:"m-claude", base:["idle","ожидает"],
+    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:true,
     skill:"memory/skills/seo-orm-serm.md", kb:"wiki/seo-kb/kb-orm-serm.md", kbName:"База знаний: репутация и SERM",
     look:{skin:"#c68b59",hair:"#5a3a7a",style:"long",shirt:"#8a5a2e",acc:"glasses"}},
   qa:{name:"QA / Risk Controller", role:"Независимая приёмка, риск-гейты, запрет самоприёмки", code:"SEO-14",
-    model:"GPT · независимая приёмка", mc:"m-gpt", base:["idle","ожидает"],
+    model:"Claude Opus 5 · отд. сессия", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание артефактов", rt:false,
     skill:"memory/skills/seo-qa-risk.md", kb:"wiki/seo-kb/kb-disputed-methods.md", kbName:"База знаний: спорные методы",
     look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#70444a",acc:"headset"}},
   release:{name:"Release Engineer", role:"Staging/draft, версии, выпуск, post-check, rollback", code:"SEO-15",
-    model:"Claude Code · coding agent", mc:"m-code", base:["idle","ожидает"],
+    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
     act:"> ожидание релиза", rt:false,
     skill:"memory/skills/seo-release-engineer.md", kb:null,
     look:{skin:"#c68b59",hair:"#20242a",style:"cap",cap:"#2f5d43",shirt:"#3d4a5c",acc:"none"}}
@@ -565,6 +586,7 @@ const KB = [
   {f:"wiki/seo-kb/kb-google.md", n:"Google", o:"SEO-02", w:"Разбор утечки документации, апдейты, официальные позиции как контрольный слой"},
   {f:"wiki/seo-kb/kb-yandex.md", n:"Яндекс", o:"SEO-03", w:"Коммерческие факторы, поведенческие, механизм накрутки для распознавания"},
   {f:"wiki/seo-kb/kb-geo-aeo.md", n:"GEO / AEO", o:"SEO-04", w:"AI Overviews, цитируемость, расслоение спроса, answer units"},
+  {f:"wiki/seo-kb/kb-measurement.md", n:"Измерение результата", o:"SEO-05", w:"Иерархия метрик, что дают кабинеты и чего не дают, нужен ли трекер позиций, цикл прогноз → замер", star:true},
   {f:"wiki/seo-kb/kb-competitor-research.md", n:"Ниша и конкуренты", o:"SEO-07", w:"Проходимость выдачи, разбор топа, золотые запросы, пороги входа"},
   {f:"wiki/seo-kb/kb-tech.md", n:"Техническое SEO", o:"SEO-06", w:"Индексируемость, рендеринг, диагностика падений, ограничения конструкторов"},
   {f:"wiki/seo-kb/kb-content.md", n:"Контент и E-E-A-T", o:"SEO-08", w:"Интент, кластеры, структура ТЗ под генерацию, refresh, порог риска AI-контента"},
@@ -585,9 +607,10 @@ KB.forEach(k=>{
   kbGrid.appendChild(a);
 });
 
-/* reception desks: director + pm */
+/* reception desks: два директора + pm */
 const rd = document.getElementById("receptionDesks");
 rd.appendChild(deskCard("director"));
+rd.appendChild(deskCard("directorb"));
 rd.appendChild(deskCard("pm"));
 
 /* rooms */
