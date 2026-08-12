@@ -250,7 +250,7 @@ footer .mono{font-size:10.5px}
   <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap">
     <h1>СЕО агенство — офис</h1>
     <span class="chip wait">исследовательская фаза</span>
-    <span class="chip ok">17 ролей · 4 runtime</span>
+    <span class="chip ok">17 ролей · все на Opus 5</span>
     <span class="chip wait">2 директора</span>
     <span class="chip idle">16 баз знаний</span>
     <span class="asof">2026-08-08</span>
@@ -266,9 +266,8 @@ footer .mono{font-size:10.5px}
 
 <div class="legend">
   <span><b>Рантаймы:</b></span>
-  <span><i class="m-opus"></i>Claude <b>Opus 5</b> — суждение: противоречия в источниках, причинный вывод, приёмка (<b>10 ролей</b>)</span>
-  <span><i class="m-sonnet"></i>Claude <b>Sonnet 5</b> — процедура по чек-листу, обратимая ошибка (<b>7</b>)</span>
-  <span><i class="m-haiku"></i><b>Haiku 4.5</b> — механика без суждения: «есть ли новое»</span>
+  <span><i class="m-opus"></i>Claude <b>Opus 5</b> — модель по умолчанию для <b>всех 17 ролей</b></span>
+  <span><i class="m-haiku"></i><b>Haiku 4.5</b> — единственное исключение: сравнение RSS-ленты со списком обработанного, суждения нет</span>
   <span><i class="m-gpt"></i><b>ChatGPT · Sol 5.6</b> — внешний контур: директор-дубль и фактчек YMYL</span>
 </div>
 
@@ -432,7 +431,7 @@ const STAFF = {
     kbAll:true,
     look:{skin:"#f7d6b3",hair:"#4a4f57",style:"short",shirt:"#2f6b52",acc:"glasses"}},
   pm:{name:"Client PM / Orchestrator", role:"Правая рука директора: HANDOFF, сроки, зависимости, карточки агентов, отчётность перед клиентом", code:"SEO-13",
-    model:"Claude Sonnet 5", mc:"m-sonnet", base:["ok","ведёт HANDOFF"],
+    model:"Claude Opus 5", mc:"m-opus", base:["ok","ведёт HANDOFF"],
     act:"> handoff.sync — 2026-08-07", rt:false,
     skill:"memory/skills/seo-client-pm.md", kb:"wiki/seo-kb/kb-agency-operations.md", kbName:"Сроки, экономика и процессы",
     look:{skin:"#f2c9a0",hair:"#7a4a21",style:"bun",shirt:"#7a4f8a",acc:"headset"}},
@@ -467,7 +466,7 @@ const STAFF = {
     skill:"memory/skills/seo-trend-monitor.md", kb:"projects/СЕО агенство/sources-monitoring.md", kbName:"Реестр источников",
     look:{skin:"#f7d6b3",hair:"#8a3324",style:"bun",shirt:"#b07d2b",acc:"headset"}},
   tech:{name:"Tech-SEO / CMS Engineer", role:"Техаудит, код, CMS, счётчики, диагностика падений, подготовка к релизу", code:"SEO-06",
-    model:"Claude Sonnet 5 + краулер", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5 + краулер", mc:"m-opus", base:["idle","ожидает"],
     act:"> эталонный агент, грейд A", rt:true,
     skill:"memory/skills/seo-tech-auditor.md", kb:"wiki/seo-kb/kb-tech.md", kbName:"База знаний: техническое SEO",
     look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#44506b",acc:"glasses"}},
@@ -482,22 +481,22 @@ const STAFF = {
     skill:"memory/skills/seo-subject-matter-expert.md", kb:null,
     look:{skin:"#e0ac7e",hair:"#9aa1ab",style:"bald",shirt:"#5f6b52",acc:"beard"}},
   links:{name:"Link Builder / Digital PR", role:"Earned media, доноры, анкоры, темп прироста по паттерну ниши", code:"SEO-10",
-    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-linkbuilder.md", kb:"wiki/seo-kb/kb-links.md", kbName:"База знаний: ссылки и Digital PR",
     look:{skin:"#8d5a3b",hair:"#14161a",style:"short",shirt:"#a8632e",acc:"none"}},
   cro:{name:"CRO / Behavioral", role:"Сниппет → визит → лид; первый экран, мобильная версия, УТП, поведенческие эксперименты", code:"SEO-11",
-    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-cro-behavioral.md", kb:"wiki/seo-kb/kb-cro-behavioral.md", kbName:"База знаний: конверсия и поведение",
     look:{skin:"#f7d6b3",hair:"#6b4a86",style:"curly",shirt:"#2e6b8a",acc:"glasses"}},
   local:{name:"Local SEO Specialist", role:"Яндекс Карты, 2ГИС, Google Business Profile, NAP-консистентность, гео-посадочные", code:"SEO-16",
-    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:true,
     skill:"memory/skills/seo-local-specialist.md", kb:"wiki/seo-kb/kb-local-seo.md", kbName:"База знаний: локальное SEO",
     look:{skin:"#f2c9a0",hair:"#3f2e1e",style:"bun",shirt:"#2f7d7d",acc:"none"}},
   orm:{name:"ORM / SERM Specialist", role:"Брендовая выдача, отзывы, работа с негативом. Отзывы = коммерческий фактор Яндекса и компонент траста", code:"SEO-17",
-    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:true,
     skill:"memory/skills/seo-orm-serm.md", kb:"wiki/seo-kb/kb-orm-serm.md", kbName:"База знаний: репутация и SERM",
     look:{skin:"#c68b59",hair:"#5a3a7a",style:"long",shirt:"#8a5a2e",acc:"glasses"}},
@@ -507,7 +506,7 @@ const STAFF = {
     skill:"memory/skills/seo-qa-risk.md", kb:"wiki/seo-kb/kb-disputed-methods.md", kbName:"База знаний: спорные методы",
     look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#70444a",acc:"headset"}},
   release:{name:"Release Engineer", role:"Staging/draft, версии, выпуск, post-check, rollback", code:"SEO-15",
-    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание релиза", rt:false,
     skill:"memory/skills/seo-release-engineer.md", kb:null,
     look:{skin:"#c68b59",hair:"#20242a",style:"cap",cap:"#2f5d43",shirt:"#3d4a5c",acc:"none"}}
