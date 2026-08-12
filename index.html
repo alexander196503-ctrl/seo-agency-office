@@ -266,10 +266,10 @@ footer .mono{font-size:10.5px}
 
 <div class="legend">
   <span><b>Рантаймы:</b></span>
-  <span><i class="m-opus"></i>Claude <b>Opus 5</b> — стратегия, спорные выводы, приёмка (4 роли)</span>
-  <span><i class="m-sonnet"></i>Claude <b>Sonnet 5</b> — процедурная работа с данными (12 ролей)</span>
-  <span><i class="m-haiku"></i><b>Haiku 4.5</b> — дешёвая механика: «есть ли новое» (1)</span>
-  <span><i class="m-gpt"></i><b>ChatGPT</b> — внешний контур: директор-дубль и фактчек YMYL</span>
+  <span><i class="m-opus"></i>Claude <b>Opus 5</b> — суждение: противоречия в источниках, причинный вывод, приёмка (<b>10 ролей</b>)</span>
+  <span><i class="m-sonnet"></i>Claude <b>Sonnet 5</b> — процедура по чек-листу, обратимая ошибка (<b>7</b>)</span>
+  <span><i class="m-haiku"></i><b>Haiku 4.5</b> — механика без суждения: «есть ли новое»</span>
+  <span><i class="m-gpt"></i><b>ChatGPT · Sol 5.6</b> — внешний контур: директор-дубль и фактчек YMYL</span>
 </div>
 
 <div class="room-auto" style="margin:0">
@@ -426,7 +426,7 @@ const STAFF = {
     kbAll:true,
     look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#39506b",acc:"beard"}},
   directorb:{name:"SEO Director — дубль", role:"Второй директор на другом рантайме. Формирует выводы независимо, ДО того как увидит выводы первого. Согласие без собственного вывода аннулирует результат", code:"SEO-01B",
-    model:"ChatGPT · внешний рантайм", mc:"m-gpt", base:["wait","ручной мост"],
+    model:"ChatGPT · Sol 5.6", mc:"m-gpt", base:["wait","ручной мост"],
     act:"> ждёт брифинг-пакет", rt:false,
     skill:"memory/skills/seo-strategist.md", kb:"projects/СЕО агенство/dual-director-protocol.md", kbName:"Протокол двух директоров",
     kbAll:true,
@@ -437,22 +437,22 @@ const STAFF = {
     skill:"memory/skills/seo-client-pm.md", kb:"wiki/seo-kb/kb-agency-operations.md", kbName:"Сроки, экономика и процессы",
     look:{skin:"#f2c9a0",hair:"#7a4a21",style:"bun",shirt:"#7a4f8a",acc:"headset"}},
   google:{name:"Google SEO Specialist", role:"Модель ранжирования Google: индексация, ссылки, апдейты, разбор утечки документации", code:"SEO-02",
-    model:"Claude Sonnet 5 + веб-поиск", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5 + веб-поиск", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-google-specialist.md", kb:"wiki/seo-kb/kb-google.md", kbName:"База знаний: Google",
     look:{skin:"#c68b59",hair:"#20242a",style:"short",shirt:"#2f7d5a",acc:"glasses"}},
   yandex:{name:"Yandex SEO Specialist", role:"Регионы, коммерческие и поведенческие сигналы, Вебмастер", code:"SEO-03",
-    model:"Claude Sonnet 5", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-yandex-specialist.md", kb:"wiki/seo-kb/kb-yandex.md", kbName:"База знаний: Яндекс",
     look:{skin:"#f7d6b3",hair:"#c7a14a",style:"short",shirt:"#a8452e",acc:"none"}},
   geo:{name:"GEO / AEO Specialist", role:"AI Overviews, Алиса, ChatGPT, Perplexity: цитируемость", code:"SEO-04",
-    model:"Claude Sonnet 5 + браузер", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5 + браузер", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание задачи", rt:false,
     skill:"memory/skills/seo-geo-specialist.md", kb:"wiki/seo-kb/kb-geo-aeo.md", kbName:"База знаний: GEO/AEO",
     look:{skin:"#8d5a3b",hair:"#14161a",style:"curly",shirt:"#3b6ea5",acc:"none"}},
   analyst:{name:"Data Analyst", role:"GSC, GA4, Метрика, CRM: гипотезы и контрольные группы", code:"SEO-05",
-    model:"Claude Sonnet 5 + Node", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5 + Node", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание read-only данных", rt:false,
     skill:"memory/skills/seo-data-analyst.md", kb:null,
     look:{skin:"#f2c9a0",hair:"#4a3627",style:"long",shirt:"#356d6b",acc:"glasses"}},
@@ -462,7 +462,7 @@ const STAFF = {
     skill:"memory/skills/seo-niche-researcher.md", kb:"wiki/seo-kb/kb-competitor-research.md", kbName:"База знаний: ниша и конкуренты",
     look:{skin:"#e0ac7e",hair:"#20242a",style:"cap",cap:"#b4562f",shirt:"#5a6472",acc:"none"}},
   trend:{name:"Trend Monitor / Curator", role:"Глава базы знаний: смотрит заданных инфлюенсеров (YouTube, Telegram, блоги), датирует и грейдит находки, обновляет playbook агентов", code:"SEO-12",
-    model:"Haiku 4.5 → Sonnet 5", mc:"m-haiku", base:["ok","мониторинг источников"],
+    model:"Haiku 4.5 → Opus 5", mc:"m-haiku", base:["ok","мониторинг источников"],
     act:"> обход: Шестаков TG/YT · кейсы", rt:false,
     skill:"memory/skills/seo-trend-monitor.md", kb:"projects/СЕО агенство/sources-monitoring.md", kbName:"Реестр источников",
     look:{skin:"#f7d6b3",hair:"#8a3324",style:"bun",shirt:"#b07d2b",acc:"headset"}},
@@ -477,7 +477,7 @@ const STAFF = {
     skill:"memory/skills/seo-content-editor.md", kb:"wiki/seo-kb/kb-content.md", kbName:"База знаний: контент и E-E-A-T",
     look:{skin:"#f2c9a0",hair:"#2c2118",style:"long",shirt:"#8a4f6d",acc:"none"}},
   sme:{name:"SME Reviewer", role:"Независимый фактчек: новые знания перед записью в базу и контент перед публикацией; обязателен для YMYL", code:"SEO-09",
-    model:"Sonnet 5 · YMYL → ChatGPT", mc:"m-sonnet", base:["idle","ожидает"],
+    model:"Claude Opus 5 · YMYL → Sol 5.6", mc:"m-opus", base:["idle","ожидает"],
     act:"> ожидание материалов", rt:false,
     skill:"memory/skills/seo-subject-matter-expert.md", kb:null,
     look:{skin:"#e0ac7e",hair:"#9aa1ab",style:"bald",shirt:"#5f6b52",acc:"beard"}},
