@@ -266,9 +266,8 @@ footer .mono{font-size:10.5px}
 
 <div class="legend">
   <span><b>Рантаймы:</b></span>
-  <span><i class="m-opus"></i>Claude <b>Opus 5</b> — модель по умолчанию для <b>всех 17 ролей</b></span>
-  <span><i class="m-haiku"></i><b>Haiku 4.5</b> — единственное исключение: сравнение RSS-ленты со списком обработанного, суждения нет</span>
-  <span><i class="m-gpt"></i><b>ChatGPT · Sol 5.6</b> — внешний контур: директор-дубль и фактчек YMYL</span>
+  <span><i class="m-opus"></i>Claude <b>Opus 5</b> — все <b>17 ролей</b>. Haiku не используется, нижняя граница — Sonnet 5</span>
+  <span><i class="m-gpt"></i><b>gpt-5.6-sol</b> — директор-дубль через Codex MCP, <b>по подписке ChatGPT, без оплаты API</b></span>
 </div>
 
 <div class="room-auto" style="margin:0">
@@ -425,8 +424,8 @@ const STAFF = {
     kbAll:true,
     look:{skin:"#e0ac7e",hair:"#3a3f47",style:"short",shirt:"#39506b",acc:"beard"}},
   directorb:{name:"SEO Director — дубль", role:"Второй директор на другом рантайме. Формирует выводы независимо, ДО того как увидит выводы первого. Согласие без собственного вывода аннулирует результат", code:"SEO-01B",
-    model:"ChatGPT · Sol 5.6", mc:"m-gpt", base:["wait","ручной мост"],
-    act:"> ждёт брифинг-пакет", rt:false,
+    model:"gpt-5.6-sol · по подписке", mc:"m-gpt", base:["ok","Codex MCP подключён"],
+    act:"> gpt-5.6-sol · reasoning xhigh", rt:false,
     skill:"memory/skills/seo-strategist.md", kb:"projects/СЕО агенство/dual-director-protocol.md", kbName:"Протокол двух директоров",
     kbAll:true,
     look:{skin:"#f7d6b3",hair:"#4a4f57",style:"short",shirt:"#2f6b52",acc:"glasses"}},
@@ -461,7 +460,7 @@ const STAFF = {
     skill:"memory/skills/seo-niche-researcher.md", kb:"wiki/seo-kb/kb-competitor-research.md", kbName:"База знаний: ниша и конкуренты",
     look:{skin:"#e0ac7e",hair:"#20242a",style:"cap",cap:"#b4562f",shirt:"#5a6472",acc:"none"}},
   trend:{name:"Trend Monitor / Curator", role:"Глава базы знаний: смотрит заданных инфлюенсеров (YouTube, Telegram, блоги), датирует и грейдит находки, обновляет playbook агентов", code:"SEO-12",
-    model:"Haiku 4.5 → Opus 5", mc:"m-haiku", base:["ok","мониторинг источников"],
+    model:"Claude Opus 5", mc:"m-opus", base:["ok","мониторинг источников"],
     act:"> обход: Шестаков TG/YT · кейсы", rt:false,
     skill:"memory/skills/seo-trend-monitor.md", kb:"projects/СЕО агенство/sources-monitoring.md", kbName:"Реестр источников",
     look:{skin:"#f7d6b3",hair:"#8a3324",style:"bun",shirt:"#b07d2b",acc:"headset"}},
